@@ -34,7 +34,14 @@ mongoose
 app.set("view engine", "ejs");
 
 app.get('/', function (req, res) {
-  res.send('hello world')
+  Tweet.find()
+  .sort({ createdAt: -1 })
+  .then((result) => {
+    res.render("index", { title: "All Tweets", tweets: result});
+  })
+  .catch((err) => {
+    console.log(err)
+  })
 })
 
 app.get("/new", (req, res) => {

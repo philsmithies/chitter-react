@@ -1,0 +1,20 @@
+<html lang="en">
+  <%- include('./partials/head.ejs')%>
+<body>
+  <%- include('./partials/nav.ejs')%>
+
+    <div class="blogs content">
+        <h2>Your Feed</h2>
+        <% if(tweets.length > 0) { %>
+          <% tweets.forEach(tweet => {%>
+              <h3 class="tweet"><%= tweet.body %></h3>
+              <p class="user"><%= tweet.user %></p>
+            </a>
+          <% }) %>
+        <% } else { %>
+          <p>Post a tweet to see more</p>
+        <% } %>
+    </div>
+</body>
+<%- include('./partials/footer.ejs')%>
+</html>
