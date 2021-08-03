@@ -1,5 +1,7 @@
 <html lang="en">
-  <body>
+  <%- include('./partials/head.ejs')%>
+<body>
+  <%- include('./partials/nav.ejs')%>
     <div class="create-tweet content">
       <form action="/new" method="POST">
         <label for="body">Tweet:</label>
@@ -10,4 +12,5 @@
       </form>
     </div>
   </body>
+  <%- include('./partials/footer.ejs')%>
 </html>

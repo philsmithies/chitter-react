@@ -5,6 +5,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const Tweet = require('./models/tweet')
+const User = require('./models/user')
 require('dotenv').config();
 
 var indexRouter = require('./routes/index');
@@ -33,6 +34,8 @@ mongoose
 // register view engine
 app.set("view engine", "ejs");
 
+// home page
+
 app.get('/', function (req, res) {
   Tweet.find()
   .sort({ createdAt: -1 })
@@ -44,7 +47,7 @@ app.get('/', function (req, res) {
   })
 })
 
-app.get("/new", (req, res) => {
+app.get("/tweets/create", (req, res) => {
   res.render("new", { title: "New" });
 });
 
@@ -61,15 +64,24 @@ app.post("/new", (req, res) => {
   })
 });
 
-app.get('/users', function(req, res) {
-  // Photo.find( {}, function(err, photos) {
-  //   const photoMap = []
-  //   photos.forEach(function(photo) {
-  //     photoMap.push(photo)
-  //   })
-  //   res.send(photoMap)
-  // })
+// sign up
+app.get('/signup', function (req, res) {
+    res.render("signup", { title: 'Sign Up'});
 })
+
+app.post("/signup", (req, res) => {
+  const user = new User(req.body)
+  console.log(req.body)
+
+  user.save()
+  .then(result => {
+    res.redirect('/')
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+});
+
 
 // app.use('/users', usersRouter);
 

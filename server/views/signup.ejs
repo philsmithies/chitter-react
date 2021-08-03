@@ -1,0 +1,18 @@
+<html lang="en">
+  <%- include('./partials/head.ejs')%>
+<body>
+  <%- include('./partials/nav.ejs')%>
+    <div class="create-tweet content">
+      <form action="/signup" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
+        <label for="password">Password:</label>
+        <input type="text" id="password" name="password" required />
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required />
+        <button>Submit</button>
+      </form>
+    </div>
+  </body>
+  <%- include('./partials/footer.ejs')%>
+</html>
