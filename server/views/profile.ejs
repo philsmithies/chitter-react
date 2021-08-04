@@ -3,8 +3,16 @@
 <body>
   <%- include('./partials/nav.ejs')%>
     <div class="create-tweet content">
-        <h1>The profile page of You</h1>
-       <%= tweets %>
+        <h1>@<%= user.username %></h1>
+        <% if(user.tweets.length > 0) { %>
+          <% user.tweets.forEach(tweet => {%>
+              <h3 class="tweet">The Tweet is:<%= tweet.body %></h3>
+              <h3 class="tweet">The time is:<%= tweet.time %></h3>
+            </a>
+          <% }) %>
+        <% } else { %>
+          <p>Post a tweet to see more</p>
+        <% } %>
     </div>
   </body>
   <%- include('./partials/footer.ejs')%>

@@ -12,7 +12,6 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require('bcryptjs')
 require('dotenv').config();
 
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -104,23 +103,6 @@ app.get("/tweets/create", (req, res) => {
   res.render("new", { title: "New" });
 });
 
-// app.post("/new", (req, res, next) => {
-//   const tweet = new Tweet({
-//     body: req.body.body,
-//     username:  req.user.username,
-//     userID: req.user._id
-//   }).save(err => {
-//     if (err) { 
-//       return next(err);
-//     }
-
-//    const userTweets = req.user.tweets
-//    userTweets.push(tweet)
-
-//     res.redirect("/");
-//   });
-// });
-
 app.post('/new', async (req, res) => {
   // res.send(req.user)
   console.log(req.user.tweets)
@@ -128,12 +110,12 @@ app.post('/new', async (req, res) => {
     const tweet = new Tweet({
       body: req.body.body,
       username:  req.user.username,
-      userID: req.user._id
+      userID: req.user._id,
     });
+    await tweet.save();
     const userTweets = req.user
     userTweets.tweets.push(tweet)
     await userTweets.save();
-    await tweet.save();
     res.redirect("/");
   } catch (err) {
     console.error('Something went wrong', err);
@@ -183,7 +165,7 @@ app.get("/profile/:id", (req, res) => {
   console.log(id)
   User.findById(id)
     .then(result => {
-      res.render('profile', {tweets: result, title: 'Profile'})
+      res.render('profile', {user: result, title: 'Profile'})
     })
     .catch(err => {
       res.status(404).render('404', {title: 'Blog not found'})
