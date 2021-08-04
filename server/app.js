@@ -103,10 +103,13 @@ app.get("/tweets/create", (req, res) => {
 });
 
 app.post("/new", (req, res, next) => {
+
+  console.log(req.user._id)
   
   const tweet = new Tweet({
     body: req.body.body,
-    user:  req.user.username
+    username:  req.user.username,
+    userID: req.user._id
   }).save(err => {
     if (err) { 
       return next(err);
@@ -151,6 +154,18 @@ app.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
+// profile page
+app.get("/profile/:id", (req, res) => {
+  const id = req.params.id
+  Tweet.findById(id)
+    .then(result => {
+      res.render('profile', {tweet: result, title: 'Profile'})
+    })
+    .catch(err => {
+      res.status(404).render('404', {title: 'Blog not found'})
+    })
+})
+
 // app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
@@ -165,7 +180,7 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
+  res.status(404).render("404", { title: "404" });
   res.render('error');
 });
 

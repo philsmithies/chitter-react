@@ -7,6 +7,7 @@
 
       <% if (user) {%>
         <h1>WELCOME BACK <%= user.username %></h1>
+        <a href="/profile/<%= user.id %>">Profile</a>
         <a href="/logout">LOG OUT</a>
       <% } else { %>
         <h1>please log in</h1>
@@ -23,7 +24,7 @@
         <% if(tweets.length > 0) { %>
           <% tweets.forEach(tweet => {%>
               <h3 class="tweet"><%= tweet.body %></h3>
-              <p class="user"><%= tweet.user %></p>
+              <p class="user">Posted by:<%= tweet.username %></p>
             </a>
           <% }) %>
         <% } else { %>
