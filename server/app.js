@@ -102,17 +102,17 @@ app.get("/tweets/create", (req, res) => {
   res.render("new", { title: "New" });
 });
 
-app.post("/new", (req, res) => {
-  const tweet = new Tweet(req.body)
-  console.log(req.body)
-
-  tweet.save()
-  .then(result => {
-    res.redirect('/')
-  })
-  .catch((err) => {
-    console.log(err)
-  })
+app.post("/new", (req, res, next) => {
+  
+  const tweet = new Tweet({
+    body: req.body.body,
+    user:  req.user.username
+  }).save(err => {
+    if (err) { 
+      return next(err);
+    }
+    res.redirect("/");
+  });
 });
 
 // sign up

@@ -6,10 +6,7 @@ const tweetSchema  = new Schema({
     type: String,
     required: true
   },
-  user: {
-    type: String, 
-    required: true
-  },
+  user: {type: mongoose.Types, ref:'User'},
 }, { timestamps: true })
 
 // it will pluralise this name in the db so 'blogs'
