@@ -12,6 +12,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require('bcryptjs')
 require('dotenv').config();
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -86,6 +87,7 @@ app.set("view engine", "ejs");
 // home page
 
 app.get('/', function (req, res) {
+
   // access the current user with this
   // console.log(res.locals.currentUser)
   Tweet.find()
@@ -102,20 +104,40 @@ app.get("/tweets/create", (req, res) => {
   res.render("new", { title: "New" });
 });
 
-app.post("/new", (req, res, next) => {
+// app.post("/new", (req, res, next) => {
+//   const tweet = new Tweet({
+//     body: req.body.body,
+//     username:  req.user.username,
+//     userID: req.user._id
+//   }).save(err => {
+//     if (err) { 
+//       return next(err);
+//     }
 
-  console.log(req.user._id)
-  
-  const tweet = new Tweet({
-    body: req.body.body,
-    username:  req.user.username,
-    userID: req.user._id
-  }).save(err => {
-    if (err) { 
-      return next(err);
-    }
+//    const userTweets = req.user.tweets
+//    userTweets.push(tweet)
+
+//     res.redirect("/");
+//   });
+// });
+
+app.post('/new', async (req, res) => {
+  // res.send(req.user)
+  console.log(req.user.tweets)
+  try {
+    const tweet = new Tweet({
+      body: req.body.body,
+      username:  req.user.username,
+      userID: req.user._id
+    });
+    const userTweets = req.user
+    userTweets.tweets.push(tweet)
+    await userTweets.save();
+    await tweet.save();
     res.redirect("/");
-  });
+  } catch (err) {
+    console.error('Something went wrong', err);
+  }
 });
 
 // sign up
@@ -134,6 +156,7 @@ app.post("/signup", async (req, res, next) => {
     if (err) { 
       return next(err);
     }
+
     res.redirect("/");
   });
 });
@@ -157,9 +180,10 @@ app.get("/logout", (req, res) => {
 // profile page
 app.get("/profile/:id", (req, res) => {
   const id = req.params.id
-  Tweet.findById(id)
+  console.log(id)
+  User.findById(id)
     .then(result => {
-      res.render('profile', {tweet: result, title: 'Profile'})
+      res.render('profile', {tweets: result, title: 'Profile'})
     })
     .catch(err => {
       res.status(404).render('404', {title: 'Blog not found'})

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+
 // const uniqueValidator = require('mongoose-unique-validator');
 
 const userSchema = new Schema({
@@ -15,7 +16,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  tweets: [{type: mongoose.Schema.Types.ObjectId, ref:"Tweet"}],
+  tweets: [],
 });
 
 // user.plugin(uniqueValidator, { message: 'Error, expected {VALUE} to be unique'})
