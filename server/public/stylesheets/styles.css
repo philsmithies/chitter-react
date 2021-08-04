@@ -6,3 +6,11 @@ body {
 a {
   color: #00B7FF;
 }
+
+.profile_photo{
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  object-fit: cover;
+  border-radius: 50%;
+}

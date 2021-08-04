@@ -25,6 +25,7 @@
           <% tweets.forEach(tweet => {%>
               <h3 class="tweet"><%= tweet.body %></h3>
               <p class="user">Posted by:<%= tweet.username %></p>
+              <p class="tweet">The time is:<%= tweet.createdAt %></p>
             </a>
           <% }) %>
         <% } else { %>
