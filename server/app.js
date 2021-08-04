@@ -9,6 +9,7 @@ const User = require('./models/user')
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const bcrypt = require('bcryptjs')
 require('dotenv').config();
 
 var indexRouter = require('./routes/index');
@@ -33,9 +34,15 @@ passport.use(
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
       }
-      if (user.password !== password) {
-        return done(null, false, { message: "Incorrect password" });
-      }
+      bcrypt.compare(password, user.password, (err, res) => {
+        if (res) {
+          // passwords match! log user in
+          return done(null, user)
+        } else {
+          // passwords do not match!
+          return done(null, false, { message: "Incorrect password" })
+        }
+      })
       return done(null, user);
     });
   })
@@ -56,6 +63,11 @@ app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(function(req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
+
 // connect to mongodb
 const PORT = process.env.PORT || 3001 
 
@@ -74,6 +86,8 @@ app.set("view engine", "ejs");
 // home page
 
 app.get('/', function (req, res) {
+  // access the current user with this
+  // console.log(res.locals.currentUser)
   Tweet.find()
   .sort({ createdAt: -1 })
   .then((result) => {
@@ -107,10 +121,11 @@ app.get("/signup", (req, res) => {
   res.render("signup", { title: "New" });
 });
 
-app.post("/signup", (req, res, next) => {
+app.post("/signup", async (req, res, next) => {
+  const hashedPassword = await bcrypt.hash(req.body.password, 10);
   const user = new User({
     username: req.body.username,
-    password: req.body.password,
+    password: hashedPassword,
     email: req.body.email
   }).save(err => {
     if (err) { 
