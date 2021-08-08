@@ -12,13 +12,13 @@
 }
 
 .sidebar{
-  background-color: royalblue;
+  background-color: rgb(128, 155, 238);
   grid-column: 1 / 2;
   grid-row: 1 / 2;
 }
 
 .signupbar{
-  background-color: royalblue;
+  background-color: rgb(128, 155, 238);
   grid-column: 3 / 4;
   grid-row: 1 / 2;
 }

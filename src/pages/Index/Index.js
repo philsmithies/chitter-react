@@ -1,4 +1,5 @@
-import ExploreBar from '../../components/ExploreBar/ExploreBar.js'
+import ExploreBar from '../../components/ExploreBar/'
+import SignUpBar from '../../components/SignUpBar/'
 import './styles.css'
 
 export default function Index() {
@@ -11,7 +12,7 @@ export default function Index() {
         <ExploreBar/>
       </div>
       <div className="signupbar">
-        <ExploreBar/>
+        <SignUpBar />
       </div>
     </div>
   )
