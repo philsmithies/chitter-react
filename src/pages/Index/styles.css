@@ -4,6 +4,7 @@
   height: 1000px;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 80vh 5em;
 }
 
 .main_content{
@@ -21,4 +22,14 @@
   background-color: rgb(128, 155, 238);
   grid-column: 3 / 4;
   grid-row: 1 / 2;
+}
+
+.footer{
+  grid-column: 1 / 4;
+  grid-row: 2 / 3;
+  background-color: rgb(96, 117, 181);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
 }

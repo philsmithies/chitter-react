@@ -1,5 +1,6 @@
 import ExploreBar from '../../components/ExploreBar/'
 import SignUpBar from '../../components/SignUpBar/'
+import Footer from '../../components/Footer/'
 import './styles.css'
 
 export default function Index() {
@@ -13,6 +14,9 @@ export default function Index() {
       </div>
       <div className="signupbar">
         <SignUpBar />
+      </div>
+      <div className="footer">
+        <Footer />
       </div>
     </div>
   )
