@@ -1,3 +1,24 @@
 .main_grid {
-  background-color: red;
+  background-color: grey;
+  width: 100vw;
+  height: 1000px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+.main_content{
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+}
+
+.sidebar{
+  background-color: royalblue;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.signupbar{
+  background-color: royalblue;
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
 }

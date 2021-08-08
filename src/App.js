@@ -6,7 +6,7 @@ import Index from './pages/Index/Index.js';
 function App() {
   return (
     <div className="App">
-      <h2>chitter</h2>
+      <h2>Chitter</h2>
       <Router>
       <Switch>
         <Route path="/" exact component={Index}  />
