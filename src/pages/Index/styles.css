@@ -1,15 +1,17 @@
 .main_grid {
-  background-color: grey;
+  background-color: rgb(128, 155, 238);
   width: 100vw;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  /* grid-template-rows: 80vh 5em; */
 }
 
 .main_content{
   grid-column: 2 / 3;
   grid-row: 1 / 2;
   color: white;
+  margin-top: 2em;  
+  border-left: solid 3px lightgrey;
+  border-right: solid 3px lightgrey;
 }
 
 .sidebar{

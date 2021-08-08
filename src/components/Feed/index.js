@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
+import Tweet from '../Tweet/'
 
 export default function Feed() {
   const [allData, setAllData] = useState([]);
@@ -8,8 +9,6 @@ export default function Feed() {
   useEffect(() => {
     axios("http://localhost:3001/tweets")
       .then((response) => {
-
-        console.log(response.data);
         setAllData(response.data);
       })
       .catch((error) => {
@@ -21,11 +20,9 @@ export default function Feed() {
     <div>
       {allData.map((value, index) => (
         <div>
-          <strong>Tweet is:{value.body}</strong>
-          <p>User is:{value.username}</p>
+          <Tweet tweet={value.body} username={value.username}/>
         </div>
       ))}
-      Feed
     </div>
   )
 }

@@ -1,0 +1,58 @@
+/* import './index.css'
+
+export default function Tweet() {
+  return(
+    <div>
+      <div className="tweet_wrapper">
+        <div className="profile_photo">
+
+        </div>
+        <div className="tweet_content">
+          <div className="username">
+            username date posted
+          </div>
+          <div className="body">
+            body text here
+          </div>
+          <div className="tweet_functions">
+            all the tweet functions
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+} */
+
+.tweet_wrapper{
+  background-color: white;
+  color: black;
+  display: grid;
+  grid-template-columns: 48px 1.2fr 3fr 1fr;
+  grid-template-rows: 8em;
+  padding: 0.25em;
+  margin-bottom: 0.5em;
+  transition: all .1s linear;
+}
+
+.tweet_wrapper:hover{
+  background-color: lightgray;
+
+}
+
+.profile_photo{
+  grid-column: 2 / 3;
+  background-color: red;
+}
+
+.tweet_content{
+  grid-column: 3 / 4;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding-left: 2em;
+}
+
+.tweet_content div {
+  margin-bottom: 0.25em;
+}
