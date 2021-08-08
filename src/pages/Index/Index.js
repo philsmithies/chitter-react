@@ -1,13 +1,15 @@
 import ExploreBar from '../../components/ExploreBar/'
 import SignUpBar from '../../components/SignUpBar/'
+import Feed from '../../components/Feed/'
 import Footer from '../../components/Footer/'
+import axios from "axios";
 import './styles.css'
 
 export default function Index() {
   return(
     <div className="main_grid">
       <div class="main_content">
-        <h1>Index Page</h1>
+        <Feed />
       </div>
       <div className="sidebar">
         <ExploreBar/>

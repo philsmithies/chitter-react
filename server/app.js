@@ -85,19 +85,43 @@ app.set("view engine", "ejs");
 
 // home page
 
-app.get('/', function (req, res) {
+// app.get('/tweets', function (req, res) {
 
-  // access the current user with this
-  // console.log(res.locals.currentUser)
-  Tweet.find()
-  .sort({ createdAt: -1 })
-  .then((result) => {
-    res.render("index", { title: "All Tweets", tweets: result, user: req.user});
-  })
-  .catch((err) => {
-    console.log(err)
+//   // access the current user with this
+//   // console.log(res.locals.currentUser)
+//   Tweet.find()
+//   .sort({ createdAt: -1 })
+//   const tweets = []
+//   res.forEach(function(tweet) {
+//     tweets.push(tweet)
+//   })
+//   res.send(tweets)
+//   // .then((result) => {
+//   //   res.render("index", { title: "All Tweets", tweets: result, user: req.user});
+//   // })
+//   .catch((err) => {
+//     console.log(err)
+//   })
+// })
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  next();
+});
+
+
+app.get('/tweets', function(req, res) {
+  Tweet.find( {}, function(err, tweets) {
+    const tweetsMap = []
+    tweets.forEach(function(tweet) {
+      tweetsMap.push(tweet)
+    })
+    res.send(tweetsMap)
   })
 })
+
 
 app.get("/tweets/create", (req, res) => {
   res.render("new", { title: "New" });
