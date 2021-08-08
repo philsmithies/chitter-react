@@ -39,9 +39,14 @@
   display: flex;
 }
 
-.username small {
+.usernameText {
   margin: 0 0.25em;
   color: lightslategray;
+}
+
+.dateText{
+  margin: 0 0.25em;
+  color: black;
 }
 
 .tweet_content div {
