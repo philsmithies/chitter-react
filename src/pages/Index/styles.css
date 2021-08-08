@@ -1,5 +1,5 @@
 .main_grid {
-  background-color: rgb(128, 155, 238);
+  /* background-color: rgb(128, 155, 238); */
   width: 100vw;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
@@ -9,19 +9,17 @@
   grid-column: 2 / 3;
   grid-row: 1 / 2;
   color: white;
-  margin-top: 2em;  
-  border-left: solid 3px lightgrey;
-  border-right: solid 3px lightgrey;
+  margin-top: 1em;  
 }
 
 .sidebar{
-  background-color: rgb(128, 155, 238);
+  /* background-color: rgb(128, 155, 238); */
   grid-column: 1 / 2;
   grid-row: 1 / 2;
 }
 
 .signupbar{
-  background-color: rgb(128, 155, 238);
+  /* background-color: rgb(128, 155, 238); */
   grid-column: 3 / 4;
   grid-row: 1 / 2;
 }

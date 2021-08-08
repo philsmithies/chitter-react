@@ -1,5 +1,5 @@
 import "./index.css";
-import Feather from "./feather.png";
+import BlueTit from "./bluetit.jpeg";
 import RepeatIcon from "@material-ui/icons/Repeat";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -16,18 +16,21 @@ export default function Tweet(props) {
     <div>
       <div className="tweet_wrapper">
         <div className="profile_photo">
-          <img src={Feather} alt="new user" />
+          <img src={BlueTit} alt="new user" />
         </div>
         <div className="tweet_content">
           <div className="username">
+            <a href="#" className="profileLinks">
             <strong>{props.username}</strong> 
             <small className="usernameText">@{props.username}</small>
             <small className="dateText">{formatDate(props.createdAt)}</small>
+            </a>
             {/* <div className="threeDots">
               <MoreHorizIcon/>
             </div> */}
           </div>
-          <div className="body">{props.tweet}</div>
+
+          <div className="bodyText">{props.tweet}</div>
           <div className="tweet_functions">
             <ChatBubbleOutlineIcon className="chatBubble" />
             <RepeatIcon className="retweet" />
