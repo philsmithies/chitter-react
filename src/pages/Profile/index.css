@@ -1,0 +1,39 @@
+.profile_grid {
+  /* background-color: rgb(128, 155, 238); */
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+.profile_content{
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  color: white;
+  /* margin-top: 1em;   */
+  border-bottom: lightgray solid 1px;
+}
+
+.sidebar{
+  /* background-color: rgb(128, 155, 238); */
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.signupbar{
+  /* background-color: rgb(128, 155, 238); */
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
+}
+
+.footer{
+  /* grid-column: 1 / 4;
+  grid-row: 2 / 3; */
+  background-color: #8ad6eb;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  color: white;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}

@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
+import './index.css'
 // import { Link } from "react-router-dom";
 // import { UserContext } from "../../Contexts/UserContext";
-import BlueTit from "./bluetit.jpeg";
 import { useParams } from "react-router-dom";
-// import Tweet from "../../components/Tweet/";
+import ProfileTweet from "../../components/ProfileTweet/";
+import ExploreBar from "../../components/ExploreBar";
+import SignUpBar from "../../components/SignUpBar";
+import Footer from "../../components/Footer";
+import ProfileWrapper from "../../components/ProfileWrapper";
 
 export default function Profile() {
   const [data, setData] = useState();
@@ -43,22 +47,33 @@ export default function Profile() {
   }, [userId]);
 
   return (
-    <div>
-      <div className="profile_photo">
-        <img src={BlueTit} alt="new user" />
-      </div>
-      {data ? (
-        <div>
-          <p>The Profile Page of {data.username}</p>
-          {data.tweets.map((value, index) => (
-            <div>
-              <p>Value {value.body}</p>
-              <p>User {value.username}</p>
-              <p>Created At {value.createdAt}</p>
-            </div>
-          ))}
+    <div className="profile_grid">
+        {/* <div className="profile_photo">
+          <img src={BlueTit} alt="new user" />
+        </div> */}
+        {data ? (
+          <div>
+          <div className="profile_wrapper">
+            <ProfileWrapper username={data.username} length={data.tweets.length}/>
+          </div>
+           <div class="profile_content">
+            {data.tweets.map((value, index) => (
+              <div>
+                <ProfileTweet tweet={value.body} username={value.username} />
+              </div>
+            ))}
+          </div>
+          </div>
+        ) : null}
+      <div className="sidebar">
+          <ExploreBar />
         </div>
-      ) : null}
+        <div className="signupbar">
+          <SignUpBar />
+        </div>
+        <div className="footer">
+          <Footer />
+        </div>
     </div>
   );
 }

@@ -1,0 +1,27 @@
+.profile_wrapper {
+  border-left: lightgray solid 1px;
+  border-right: lightgray solid 1px;
+  border-top: lightgray solid 1px;
+  text-align: left;
+}
+
+.profile_functions {
+  display: flex;
+  align-items: center;
+}
+
+.functions_text {
+  margin-left: 2em;
+}
+
+.arrow {
+  justify-self: flex-start;
+  margin-left: 1em;
+  border-radius: 50%;
+  transition: all .1s linear;
+}
+
+.arrow:hover {
+  color: rgb(100, 159, 196);
+  background-color: lightskyblue;
+}
