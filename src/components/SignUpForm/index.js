@@ -7,15 +7,15 @@ export default function SignUpForm() {
 
   // const url = 'https://api.cloudinary.com/v1_1/dryaxqxie/image/upload';
   // const preset = 'cyber_photos';
-  const [image, setImage] = useState('');
+  // const [image, setImage] = useState('');
   const [passwordReg, setPasswordReg] = useState('');
   const [emailReg, setEmailReg] = useState('');
   const [usernameReg, setUsernameReg] = useState('');
 
-  const onChange = e => {
-    setImage(e.target.files[0]);
-    const file = e.target.files[0]
-  };
+  // const onChange = e => {
+  //   setImage(e.target.files[0]);
+  //   const file = e.target.files[0]
+  // };
 
   const register = async () => {
     // const formData = new FormData();
@@ -86,12 +86,12 @@ export default function SignUpForm() {
           setPasswordReg(e.target.value);
         }}
       />
-       <input
+       {/* <input
         type="file"
         hidden
         onChange={onChange}
         style={{display: 'none'}}
-        />
+        /> */}
       {/* <TextField
         type="password"
         id="standard-full-width"

@@ -3,7 +3,7 @@ import './index.css'
 export default function TweetBtn() {
   return (
     <div>
-      <a href="#" className="tweetLink">
+      <a href="/new" className="tweetLink">
         <div className="tweetBtn">
           <p>Tweet</p>
         </div>

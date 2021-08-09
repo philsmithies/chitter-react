@@ -4,7 +4,7 @@ import RepeatIcon from "@material-ui/icons/Repeat";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import LinkIcon from "@material-ui/icons/Link";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+// import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { format } from "date-fns";
 
 export default function Tweet(props) {
@@ -20,7 +20,7 @@ export default function Tweet(props) {
         </div>
         <div className="tweet_content">
           <div className="username">
-            <a href="#" className="profileLinks">
+            <a href="/profile" className="profileLinks">
             <strong>{props.username}</strong> 
             <small className="usernameText">@{props.username}</small>
             <small className="dateText">{formatDate(props.createdAt)}</small>
