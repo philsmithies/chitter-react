@@ -1,71 +1,18 @@
-var createError = require("http-errors");
-var express = require("express");
-const mongoose = require("mongoose");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-const Tweet = require("./models/tweet");
+const express = require('express');
+const morgan = require("morgan");
+const passport = require('passport');
+const passportLocal = require('passport-local').Strategy;
+const cookieParser = require('cookie-parser');
+const bcrypt = require('bcrypt');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const cors = require('cors')
+const mongoose = require('mongoose');
 const User = require("./models/user");
-const session = require("express-session");
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const bcrypt = require("bcryptjs");
+const Tweet = require("./models/tweet");
 require("dotenv").config();
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-
-var app = express();
-
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
-
-// passport
-
-passport.use(
-  new LocalStrategy((username, password, done) => {
-    User.findOne({ username: username }, (err, user) => {
-      if (err) {
-        return done(err);
-      }
-      if (!user) {
-        return done(null, false, { message: "Incorrect username" });
-      }
-      bcrypt.compare(password, user.password, (err, res) => {
-        if (res) {
-          // passwords match! log user in
-          return done(null, user);
-        } else {
-          // passwords do not match!
-          return done(null, false, { message: "Incorrect password" });
-        }
-      });
-      return done(null, user);
-    });
-  })
-);
-
-passport.serializeUser(function (user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function (id, done) {
-  User.findById(id, function (err, user) {
-    done(err, user);
-  });
-});
-
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use(function (req, res, next) {
-  res.locals.currentUser = req.user;
-  next();
-});
+//----------------------------------------- END OF IMPORTS--------------------------------------------------- //
 
 // connect to mongodb
 const PORT = process.env.PORT || 3001;
@@ -78,42 +25,33 @@ mongoose
   .then((result) => app.listen(`${PORT}`))
   .catch((err) => console.log(err));
 
-// register view engine
-app.set("view engine", "ejs");
+//-----------------------------------------  MIDDLEWARE--------------------------------------------------- //
 
-// home page
+// allows us to write app and the crud action we want ex. app.get | app.post | app.delete etc...
+const app = express();
 
-// app.get('/tweets', function (req, res) {
+app.use(express.json()) // =>  allows us to read the request or req body
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true
+}))
+app.use(morgan('tiny'))
+app.use(bodyParser.json());
+app.use(express.urlencoded({extended: true}));
+app.use(session({
+    secret: 'secretcode',
+    resave: true,
+    saveUninitialized: true,
+}));
 
-//   // access the current user with this
-//   // console.log(res.locals.currentUser)
-//   Tweet.find()
-//   .sort({ createdAt: -1 })
-//   const tweets = []
-//   res.forEach(function(tweet) {
-//     tweets.push(tweet)
-//   })
-//   res.send(tweets)
-//   // .then((result) => {
-//   //   res.render("index", { title: "All Tweets", tweets: result, user: req.user});
-//   // })
-//   .catch((err) => {
-//     console.log(err)
-//   })
-// })
+app.use(cookieParser('secretecode'));
+app.use(passport.initialize());
+app.use(passport.session());
+require('./passportConfig')(passport);
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET,HEAD,OPTIONS,POST,PUT,DELETE"
-  );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  next();
-});
+//----------------------------------------- END OF MIDDLEWARE--------------------------------------------------- //
+
+// Routes
 
 app.get("/tweets", function (req, res) {
   Tweet.find({}, function (err, tweets) {
@@ -150,16 +88,27 @@ app.post("/new", async (req, res) => {
 
 // sign up
 
-app.get("/signup", (req, res) => {
-  res.render("signup", { title: "New" });
+app.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) throw err;
+    if (!user) res.send("No User Exists");
+    else {
+      req.logIn(user, (err) => {
+        if (err) throw err;
+        res.send("Successfully Authenticated");
+        console.log(req.user);
+      });
+    }
+  })(req, res, next);
 });
 
-app.post("/signup", async (req, res, next) => {
+app.post("/signup", (req, res) => {
   User.findOne({ username: req.body.username }, async (err, doc) => {
     if (err) throw err;
     if (doc) res.send("User Already Exists");
     if (!doc) {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
       const newUser = new User({
         username: req.body.username,
         password: hashedPassword,
@@ -167,25 +116,20 @@ app.post("/signup", async (req, res, next) => {
       });
       await newUser.save();
       res.send("User Created");
-      res.redirect("/");
+      console.log(req.user)
     }
   });
 });
-
-// log in
-
-app.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/",
-  })
-);
 
 // log out
 app.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/");
+});
+
+// send user
+app.get("/user", (req, res) => {
+  res.send(req.user); // The req.user stores the entire user that has been authenticated inside of it.
 });
 
 // profile page
@@ -201,22 +145,20 @@ app.get("/profile/:id", (req, res) => {
     });
 });
 
-// app.use('/users', usersRouter);
+// // catch 404 and forward to error handler
+// app.use(function (req, res, next) {
+//   next(createError(404));
+// });
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
-});
+// // error handler
+// app.use(function (err, req, res, next) {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get("env") === "development" ? err : {};
 
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
-
-  // render the error page
-  res.status(404).render("404", { title: "404" });
-  res.render("error");
-});
+//   // render the error page
+//   res.status(404).render("404", { title: "404" });
+//   res.render("error");
+// });
 
 module.exports = app;
