@@ -124,7 +124,7 @@ app.post("/signup", (req, res) => {
 // log out
 app.get("/logout", (req, res) => {
   req.logout();
-  res.redirect("/");
+  res.send("success");
 });
 
 // send user
