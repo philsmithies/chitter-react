@@ -1,5 +1,6 @@
 import SignUpBtn from "../SignUpBtn";
 import LogInBtn from "../LogInBtn";
+import ProfileBtn from "../ProfileBtn";
 import LogOutBtn from "../LogOutBtn";
 import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
@@ -12,6 +13,7 @@ export default function SignUpBar() {
       {data ? (
         <div>
           <h2>Hello {data.username}</h2>
+          <ProfileBtn />
           <LogOutBtn />
         </div>
       ) : (

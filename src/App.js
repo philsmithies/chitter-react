@@ -4,7 +4,7 @@ import "./App.css";
 import Index from "./pages/Index";
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
-import User from "./pages/User";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -12,9 +12,9 @@ function App() {
       <Router> 
         <Switch>
           <Route path="/" exact component={Index} />
-          <Route path="/user" exact component={User} />
           <Route path="/signup" exact component={SignUp} />
           <Route path="/login" exact component={LogIn} />
+          <Route path="/profile" exact component={Profile} />
         </Switch>
       </Router>
     </div>

@@ -133,17 +133,19 @@ app.get("/user", (req, res) => {
 });
 
 // profile page
-app.get("/profile/:id", (req, res) => {
-  const id = req.params.id;
-  console.log(id);
-  User.findById(id)
-    .then((result) => {
-      res.render("profile", { user: result, title: "Profile" });
-    })
-    .catch((err) => {
-      res.status(404).render("404", { title: "Blog not found" });
-    });
-});
+
+app.get('/user/:username', (req, res) => {
+  User.findOne({username:req.params.username})
+  .then(user => {
+    if(!user) {
+      res.status(404).send();
+    }
+    res.send(user);
+  }).catch((e) => {
+    res.status(400).send(e);
+  })
+})
+
 
 // // catch 404 and forward to error handler
 // app.use(function (req, res, next) {
