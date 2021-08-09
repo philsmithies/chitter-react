@@ -27,7 +27,7 @@
 .footer{
   grid-column: 1 / 4;
   grid-row: 2 / 3;
-  background-color: rgb(96, 117, 181);
+  background-color: #8ad6eb;
   display: flex;
   align-items: center;
   justify-content: center;

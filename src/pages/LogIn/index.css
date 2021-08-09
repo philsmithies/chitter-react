@@ -1,14 +1,14 @@
-.signUpWrapper{
+.logInWrapper{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
-.signUpForm {
+.logInForm {
   border: lightgray solid 1px;
-  width: 600px;
-  height: 500px;
+  width: 400px;
+  height: 350px;
   border-radius: 15px;
-  padding: 3rem;
+  padding: 2rem;
 }
