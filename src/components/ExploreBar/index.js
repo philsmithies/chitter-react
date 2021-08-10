@@ -1,6 +1,6 @@
 import Bird from "./bird.png";
 import Hashtag from "./hashtag.png";
-import TweetBtn from "../TweetBtn";
+import TweetBtn from "../Buttons/TweetBtn";
 import "./index.css";
 
 export default function ExploreBar() {

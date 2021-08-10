@@ -2,7 +2,7 @@
   /* background-color: rgb(128, 155, 238); */
   width: 100vw;
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 1fr 600px 1fr;
 }
 
 .main_content{
@@ -22,14 +22,4 @@
   /* background-color: rgb(128, 155, 238); */
   grid-column: 3 / 4;
   grid-row: 1 / 2;
-}
-
-.footer{
-  grid-column: 1 / 4;
-  grid-row: 2 / 3;
-  background-color: #8ad6eb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
 }

@@ -1,7 +1,7 @@
-import SignUpBtn from "../SignUpBtn";
-import LogInBtn from "../LogInBtn";
-import ProfileBtn from "../ProfileBtn";
-import LogOutBtn from "../LogOutBtn";
+import SignUpBtn from "../Buttons/SignUpBtn";
+import LogInBtn from "../Buttons/LogInBtn";
+import ProfileBtn from "../Buttons/ProfileBtn";
+import LogOutBtn from "../Buttons/LogOutBtn";
 import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
 import "./index.css";

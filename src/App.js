@@ -5,6 +5,7 @@ import Index from "./pages/Index";
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
 import Profile from "./pages/Profile";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/profile" exact component={Profile} />
         </Switch>
       </Router>
+      <Footer/>
     </div>
   );
 }

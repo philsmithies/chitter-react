@@ -16,9 +16,6 @@ export default function Index() {
       <div className="signupbar">
         <SignUpBar />
       </div>
-      <div className="footer">
-        <Footer />
-      </div>
     </div>
   )
 }

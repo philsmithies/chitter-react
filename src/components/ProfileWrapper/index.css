@@ -1,13 +1,29 @@
 .profile_wrapper {
-  border-left: lightgray solid 1px;
-  border-right: lightgray solid 1px;
-  border-top: lightgray solid 1px;
+
   text-align: left;
 }
 
 .profile_functions {
+  border-left: rgb(235, 235, 235) solid 0.1px;
+  border-right: rgb(235, 235, 235) solid 0.1px;
+  border-top: rgb(235, 235, 235) solid 0.1px;
   display: flex;
   align-items: center;
+}
+
+.bio_wrapper {
+  height: 13.75em;
+  border-left: lightgray solid 0.1px;
+  border-right: lightgray solid 0.1px;
+}
+
+.profile_hero {
+  width: 112px;
+  height: 112px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-top: -60px;
+  margin-left: 2em;
 }
 
 .functions_text {
@@ -18,10 +34,55 @@
   justify-self: flex-start;
   margin-left: 1em;
   border-radius: 50%;
-  transition: all .1s linear;
+  transition: all 0.1s linear;
 }
 
 .arrow:hover {
   color: rgb(100, 159, 196);
   background-color: lightskyblue;
+}
+
+.follow_wrapper .followBtn {
+  float: right;
+  margin-right: 1rem;
+}
+
+.followBtn {
+  margin-top: 1rem;
+  height: 2.5rem;
+  width: 7rem;
+  border: none;
+  background-color: lightblue;
+  transition: all 0.1s linear;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  color: white;
+}
+
+.followBtn p {
+  margin: 0 auto;
+  align-self: center;
+}
+
+.followBtn:hover {
+  background-color: rgb(210, 226, 232);
+  border-radius: 100px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.bio_text {
+  margin-left: 2em;
+  padding-bottom: 2em;
+}
+
+.bio_text span{
+  color: grey;
+  size: 0.8rem;
+}
+
+.tweetsSpan{
+  color: gray;
 }
