@@ -1,14 +1,32 @@
+body{
+  margin: 0;
+  padding: 0;
+}
+
 .signUpWrapper{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background: rgb(0,191,255);
+  background: linear-gradient(180deg, rgba(0,191,255,0.1) 33%, rgba(223,249,237,1) 100%);
 }
 .signUpForm {
   border: lightgray solid 1px;
-  width: 600px;
-  height: 500px;
+  width: 400px;
+  height: 400px;
   border-radius: 15px;
-  padding: 3rem;
+  box-shadow: 0 1px 0 rgba(0,0,0,.15);
+  padding: 3rem 3rem 4rem;
+  background: white;
+}
+
+h2{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 400;
+}
+
+p{
+  color: grey;
 }

@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./index.css";
 import Axios from "axios";
 
-export default function TweetModal() {
+export default function TweetModal(props) {
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => {
-    setIsOpen(true);
+    if(props.link){
+      window.location.href='/signup';
+    } else {
+      setIsOpen(true);
+    }
   };
 
   const closeModal = () => {

@@ -9,6 +9,7 @@ export default function SignUp() {
       <h2>Sign Up To Chitter</h2>
       <SignUpForm/>
     </div>
+    <p>Already have an account? <a href="/login">Login</a></p>
     <Footer/>
     </div>
   )
