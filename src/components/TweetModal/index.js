@@ -1,4 +1,4 @@
-import React, { useEffect, useState, setState } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.css";
 import Axios from "axios";
 
@@ -9,21 +9,21 @@ export default function TweetModal() {
   };
 
   const closeModal = () => {
-    console.log('closed')
+    console.log("closed");
     setIsOpen(false);
   };
 
-  useEffect(() => {
-    const handleClick = (e) => {
-      if (e.target.className !== "modal" && e.target.className !== "button") {
-        closeModal()
-      }
-    };
-    if (isOpen) {
-      console.log('open')
-      window.addEventListener("click", handleClick);
-    }
-  }, [isOpen]);
+  // useEffect(() => {
+  //   const handleClick = (e) => {
+  //     if (e.target.className !== "modal" && e.target.className !== "button") {
+  //       closeModal()
+  //     }
+  //   };
+  //   if (isOpen) {
+  //     console.log('open')
+  //     window.addEventListener("click", handleClick);
+  //   }
+  // }, [isOpen]);
 
   const [tweet, setTweet] = useState("");
 
@@ -55,25 +55,26 @@ export default function TweetModal() {
           <div className="overlay"></div>
           <div className="modal">
             <header className="modal__header">
-              <h2>Modal Title</h2>
-              <button onClick={closeModal} className="close-button">
+              <div onClick={closeModal} className="close-button">
                 &times;
-              </button>
+              </div>
             </header>
             <main className="modal__main">
               <div>
                 <form onSubmit={newTweet}>
-                  <label for="body">Tweet:</label>
                   <input
                     type="text"
                     id="tweet"
                     name="tweet"
+                    placeholder="Whats on your mind?"
                     required
                     onChange={(e) => {
                       setTweet(e.target.value);
                     }}
                   />
-                  <button>Submit</button>
+                  <button className="submitBtn">
+                    <p>Tweet</p>
+                  </button>
                 </form>
               </div>
             </main>

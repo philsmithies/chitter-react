@@ -20,7 +20,6 @@ export default function ExploreBar() {
         </a>
       </div>
       <TweetModal />
-      <TweetBtn id="tweetbtn" />
     </div>
   );
 }

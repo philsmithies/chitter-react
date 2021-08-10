@@ -19,7 +19,7 @@ export default function Feed() {
   return(
     <div>
       {allData.map((value, index) => (
-        <div>
+        <div class="tweets_feed">
           <Tweet tweet={value.body} username={value.username} createdAt={value.createdAt}/>
         </div>
       ))}
