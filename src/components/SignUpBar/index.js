@@ -13,7 +13,7 @@ export default function SignUpBar() {
       {data ? (
         <div>
           <h2>Hello {data.username}</h2>
-          <ProfileBtn />
+          <ProfileBtn username={data.username} />
           <LogOutBtn />
         </div>
       ) : (

@@ -129,7 +129,7 @@ app.get("/logout", (req, res) => {
 });
 
 // // send user
-app.get("/user/:id", (req, res) => {
+app.get("/user", (req, res) => {
   res.send(req.user); // The req.user stores the entire user that has been authenticated inside of it.
 });
 

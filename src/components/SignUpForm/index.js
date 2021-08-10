@@ -6,7 +6,7 @@ import Axios from "axios";
 export default function SignUpForm() {
 
   const url = 'https://api.cloudinary.com/v1_1/dryaxqxie/image/upload';
-  const preset = 'cyber_photos';
+  const preset = 'chitter';
   const [image, setImage] = useState('');
   const [passwordReg, setPasswordReg] = useState('');
   const [emailReg, setEmailReg] = useState('');
