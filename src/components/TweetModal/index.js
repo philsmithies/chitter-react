@@ -13,15 +13,17 @@ export default function TweetModal() {
     setIsOpen(false);
   };
 
-  // useEffect(() => {
-  //   const handleClick = (e) => {
-  //       closeModal()
-  //   };
-  //   if (isOpen) {
-  //     console.log('open')
-  //     window.addEventListener("click", handleClick);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (e.target.className !== "modal" && e.target.className !== "button") {
+        closeModal()
+      }
+    };
+    if (isOpen) {
+      console.log('open')
+      window.addEventListener("click", handleClick);
+    }
+  }, [isOpen]);
 
   const [tweet, setTweet] = useState("");
 
@@ -53,7 +55,7 @@ export default function TweetModal() {
           <div className="overlay"></div>
           <div className="modal">
             <header className="modal__header">
-              <h2>New Tweet</h2>
+              <h2>Modal Title</h2>
               <button onClick={closeModal} className="close-button">
                 &times;
               </button>
