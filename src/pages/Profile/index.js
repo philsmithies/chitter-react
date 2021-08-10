@@ -47,14 +47,14 @@ export default function Profile() {
             <ProfileWrapper
               username={data.username}
               length={data.tweets.length}
-              cloudName="cyber_photos"
+              cloudName="chitter"
               publicId={data.publicId}
             />
           </div>
           <div class="profile_content">
             {data.tweets.map((value, index) => (
               <div>
-                <ProfileTweet tweet={value.body} username={value.username} />
+                <ProfileTweet tweet={value.body} username={value.username} publicId={data.publicId}/>
               </div>
             ))}
           </div>

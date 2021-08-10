@@ -7,6 +7,7 @@ import LinkIcon from "@material-ui/icons/Link";
 // import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { format } from "date-fns";
 import './index.css'
+import { Image } from "cloudinary-react";
 
 export default function ProfileTweet(props) {
   // const formatDate = (date) => {
@@ -16,9 +17,13 @@ export default function ProfileTweet(props) {
   return (
     <div>
       <div className="tweet_wrapper">
-        <div className="profile_photo">
-          <img src={BlueTit} alt="new user" />
-        </div>
+        
+         <Image
+         className="profile_photo"
+         cloudName="chitter"
+         publicId={props.publicId}
+          />
+
         <div className="tweet_content">
           <div className="username">
             <a href="/profile" className="profileLinks">
