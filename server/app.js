@@ -72,7 +72,7 @@ app.post("/new", async (req, res) => {
   console.log(req.user.tweets);
   try {
     const tweet = new Tweet({
-      body: req.body.body,
+      body: req.body.tweet,
       username: req.user.username,
       userID: req.user._id,
     });
@@ -128,7 +128,7 @@ app.get("/logout", (req, res) => {
 });
 
 // send user
-app.get("/user", (req, res) => {
+app.get("/user/:id", (req, res) => {
   res.send(req.user); // The req.user stores the entire user that has been authenticated inside of it.
 });
 

@@ -20,7 +20,7 @@ export default function Tweet(props) {
         </div>
         <div className="tweet_content">
           <div className="username">
-            <a href="/profile" className="profileLinks">
+            <a href={`user/${props.username}`} className="profileLinks">
             <strong>{props.username}</strong> 
             <small className="usernameText">@{props.username}</small>
             <small className="dateText">{formatDate(props.createdAt)}</small>

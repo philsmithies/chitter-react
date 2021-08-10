@@ -1,6 +1,7 @@
 import Bird from "./bird.png";
 import Hashtag from "./hashtag.png";
 import TweetBtn from "../Buttons/TweetBtn";
+import TweetModal from "../TweetModal"
 import "./index.css";
 
 export default function ExploreBar() {
@@ -18,6 +19,7 @@ export default function ExploreBar() {
           </h1>
         </a>
       </div>
+      <TweetModal />
       <TweetBtn id="tweetbtn" />
     </div>
   );
