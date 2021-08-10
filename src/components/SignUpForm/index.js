@@ -5,30 +5,30 @@ import Axios from "axios";
 
 export default function SignUpForm() {
 
-  // const url = 'https://api.cloudinary.com/v1_1/dryaxqxie/image/upload';
-  // const preset = 'cyber_photos';
-  // const [image, setImage] = useState('');
+  const url = 'https://api.cloudinary.com/v1_1/dryaxqxie/image/upload';
+  const preset = 'cyber_photos';
+  const [image, setImage] = useState('');
   const [passwordReg, setPasswordReg] = useState('');
   const [emailReg, setEmailReg] = useState('');
   const [usernameReg, setUsernameReg] = useState('');
 
-  // const onChange = e => {
-  //   setImage(e.target.files[0]);
-  //   const file = e.target.files[0]
-  // };
+  const onChange = e => {
+    setImage(e.target.files[0]);
+    const file = e.target.files[0]
+  };
 
   const register = async () => {
-    // const formData = new FormData();
-    // formData.append('file', image);
-    // formData.append('upload_preset', preset);
-    // const res = await Axios.post(url, formData);
-    // const imageUrl = res.data.secure_url;
+    const formData = new FormData();
+    formData.append('file', image);
+    formData.append('upload_preset', preset);
+    const res = await Axios.post(url, formData);
+    const imageUrl = res.data.secure_url;
     try {
       await Axios.post("http://localhost:3001/signup", {
         username: usernameReg,
         password: passwordReg,
         email: emailReg,
-        // publicId: imageUrl,
+        publicId: imageUrl,
       },
         {
           withCredentials: true,
@@ -86,12 +86,19 @@ export default function SignUpForm() {
           setPasswordReg(e.target.value);
         }}
       />
-       {/* <input
+        <Button
+          variant="contained"
+          component="label"
+          color="secondary"
+        >
+        Upload Profile Picture
+        <input
         type="file"
         hidden
         onChange={onChange}
         style={{display: 'none'}}
-        /> */}
+        />
+          </Button>
       {/* <TextField
         type="password"
         id="standard-full-width"

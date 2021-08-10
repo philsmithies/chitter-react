@@ -2,6 +2,7 @@ import "./index.css";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import BannerImg from "./banner.jpeg";
 import BlueTit from "./bluetit.jpeg";
+import { Image } from "cloudinary-react";
 
 export default function ProfileWrapper(props) {
   return (
@@ -26,7 +27,11 @@ export default function ProfileWrapper(props) {
       </div>
       <div className="bio_wrapper">
         <div className="follow_wrapper">
-          <img src={BlueTit} className="profile_hero" alt="bluetit" />
+          <Image
+            className="profile_hero"
+            cloudName="chitter"
+            publicId={props.publicId}
+          />
           <div className="followBtn">Follow</div>
         </div>
         <div className="bio_text">

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
 import Tweet from '../Tweet/'
+import './index.css'
 
 export default function Feed() {
   const [allData, setAllData] = useState([]);

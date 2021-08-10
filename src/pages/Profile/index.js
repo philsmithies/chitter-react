@@ -17,7 +17,7 @@ export default function Profile() {
       Axios({
         method: "GET",
         withCredentials: true,
-        url: "http://localhost:3001/user",
+        url: "http://localhost:3001/profile",
       }).then((res) => {
         console.log(res.data);
         setData(res.data);
@@ -26,7 +26,7 @@ export default function Profile() {
       Axios({
         method: "GET",
         withCredentials: true,
-        url: "http://localhost:3001/user/" + userId,
+        url: "http://localhost:3001/profile/" + userId,
       }).then((res) => {
         console.log(res.data);
         setData(res.data);
@@ -36,7 +36,6 @@ export default function Profile() {
 
   useEffect(() => {
     console.log("user id is ", userId);
-
     getProfileData(userId);
   }, [userId]);
 
@@ -48,6 +47,8 @@ export default function Profile() {
             <ProfileWrapper
               username={data.username}
               length={data.tweets.length}
+              cloudName="cyber_photos"
+              publicId={data.publicId}
             />
           </div>
           <div class="profile_content">

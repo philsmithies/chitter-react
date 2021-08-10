@@ -113,6 +113,7 @@ app.post("/signup", (req, res) => {
         username: req.body.username,
         password: hashedPassword,
         email: req.body.email,
+        publicId: req.body.publicId
       });
       await newUser.save();
       res.send("User Created");
@@ -127,14 +128,14 @@ app.get("/logout", (req, res) => {
   res.send("success");
 });
 
-// send user
+// // send user
 app.get("/user/:id", (req, res) => {
   res.send(req.user); // The req.user stores the entire user that has been authenticated inside of it.
 });
 
 // profile page
 
-app.get('/user/:username', (req, res) => {
+app.get('/profile/:username', (req, res) => {
   User.findOne({username:req.params.username})
   .then(user => {
     if(!user) {
