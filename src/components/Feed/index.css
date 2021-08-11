@@ -1,3 +1,7 @@
 .tweets_feed:last-child{
   border-bottom: solid 1px lightgray;
 }
+
+p{
+  color: black;
+}

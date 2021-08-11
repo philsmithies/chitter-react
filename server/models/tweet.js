@@ -12,6 +12,7 @@ const tweetSchema  = new Schema({
   userID: {
     type: String,
   },
+  likes: []
 }, { timestamps: true })
 
 // it will pluralise this name in the db so 'blogs'

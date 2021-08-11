@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700;900&display=swap");
 
 .App {
   text-align: center;
@@ -10,7 +10,7 @@ html {
 }
 
 body {
-  /* margin: 0 0 100px; */
+  margin: 0;
   /* bottom = footer height */
   padding: 25px;
 }
@@ -50,9 +50,10 @@ body {
   }
 }
 
-Footer{
+Footer {
   background-color: #8ad6eb;
   position: absolute;
+  color: white;
   left: 0;
   bottom: 0;
   height: 4em;
@@ -60,6 +61,6 @@ Footer{
   justify-content: center;
   align-items: center;
   width: 100%;
-  overflow:hidden;
+  overflow: hidden;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

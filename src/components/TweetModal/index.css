@@ -6,7 +6,7 @@
 .overlay {
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, .7);
+  background: rgba(0, 0, 0, 0.7);
   position: fixed;
   top: 0;
   left: 0;
@@ -53,12 +53,13 @@
   color: lightblue;
 }
 
-.button, .submitBtn{
-  height: 2.5rem; 
+.button,
+.submitBtn {
+  height: 2.5rem;
   width: 100%;
   border: none;
   background-color: lightblue;
-  transition: all .1s linear;
+  transition: all 0.1s linear;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,35 +67,33 @@
   color: white;
   font-weight: 700;
   font-size: 1em;
-  }
+}
 
-  
-  .button:hover {
-    background-color: rgb(210, 226, 232);
-    border-radius: 100px;
-    box-sizing: border box;
-  }
+.button:hover {
+  background-color: rgb(210, 226, 232);
+  border-radius: 100px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
 
-  input{
-    color: grey;
-    border: none;
-    font-size: 19px;
-    margin-top: 0.25em;
-  }
+input {
+  color: grey;
+  border: none;
+  font-size: 19px;
+  margin-top: 0.25em;
+}
 
-  input:focus{
-    outline: 0;
-  }
+input:focus {
+  outline: 0;
+}
 
-  .submitBtn{
-    float: right;
-    width: 30%;
-    transition: all .1s linear;
-  }
+.submitBtn {
+  float: right;
+  width: 30%;
+  transition: all 0.1s linear;
+}
 
-  .submitBtn:hover{
-    background-color: rgb(210, 226, 232);
-    cursor: pointer;
-  }
-
-
+.submitBtn:hover {
+  background-color: rgb(210, 226, 232);
+  cursor: pointer;
+}

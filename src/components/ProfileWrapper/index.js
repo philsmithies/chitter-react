@@ -36,11 +36,11 @@ export default function ProfileWrapper(props) {
         </div>
         <div className="bio_text">
           <h3>
-            Paul<br/>
+            {props.fullName || ""}<br/>
             <span>@{props.username}</span>
           </h3>
           <p>
-            First Bio.
+          {props.bio || "New chipper"}
             <br />
             Joined August 2021
           </p>

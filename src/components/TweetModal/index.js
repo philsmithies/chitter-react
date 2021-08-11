@@ -37,6 +37,7 @@ export default function TweetModal(props) {
         "http://localhost:3001/new",
         {
           tweet: tweet,
+          likes: []
         },
         {
           withCredentials: true,

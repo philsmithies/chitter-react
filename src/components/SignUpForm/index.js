@@ -26,6 +26,8 @@ export default function SignUpForm() {
   const [passwordReg, setPasswordReg] = useState("");
   const [emailReg, setEmailReg] = useState("");
   const [usernameReg, setUsernameReg] = useState("");
+  const [fullNameReg, setFullNameReg] = useState("");
+
 
   const onChange = (e) => {
     setImage(e.target.files[0]);
@@ -43,6 +45,7 @@ export default function SignUpForm() {
         "http://localhost:3001/signup",
         {
           username: usernameReg,
+          fullName: fullNameReg,
           password: passwordReg,
           email: emailReg,
           publicId: imageUrl,
@@ -74,6 +77,19 @@ export default function SignUpForm() {
         }}
         onChange={(e) => {
           setUsernameReg(e.target.value);
+        }}
+      />
+      <TextField
+        id="standard-full-width"
+        label="full name"
+        placeholder="JimBob"
+        fullWidth
+        margin="normal"
+        InputLabelProps={{
+          shrink: true,
+        }}
+        onChange={(e) => {
+          setFullNameReg(e.target.value);
         }}
       />
       <TextField
@@ -111,6 +127,7 @@ export default function SignUpForm() {
           id="contained-button-file"
           multiple
           type="file"
+          onChange={onChange}
         />
         <label htmlFor="contained-button-file">
           <Button variant="contained" component="span">
@@ -122,6 +139,7 @@ export default function SignUpForm() {
           className={classes.input}
           id="icon-button-file"
           type="file"
+          onChange={onChange}
         />
         <label htmlFor="icon-button-file">
           <IconButton aria-label="upload picture" component="span">
@@ -142,7 +160,7 @@ export default function SignUpForm() {
       /> */}
       <Button
         variant="contained"
-        style={{ margin: 30, backgroundColor: "lightblue" }}
+        style={{ margin: 30, width: 290, backgroundColor: "lightblue" }}
         onClick={register}
       >
         Submit

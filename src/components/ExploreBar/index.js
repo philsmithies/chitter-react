@@ -15,12 +15,12 @@ export default function ExploreBar() {
         </a>
       </div>
       <div>
-        {data ? <TweetModal /> : <TweetModal link={"/signup"} />}
-        <a href="/">
+      <a href="/">
           <h1 className="menuItem">
             <img src={Hashtag} alt="hashtag" className="hashtag" /> Explore
           </h1>
         </a>
+        {data ? <TweetModal /> : <TweetModal link={"/signup"} />}
       </div>
     </div>
   );

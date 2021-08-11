@@ -6,6 +6,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import LinkIcon from "@material-ui/icons/Link";
 // import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { format } from "date-fns";
+import { Image } from "cloudinary-react";
 
 export default function Tweet(props) {
   const formatDate = (date) => {
@@ -16,14 +17,22 @@ export default function Tweet(props) {
     <div>
       <div className="tweet_wrapper">
         <div className="profile_photo">
-          <img src={BlueTit} alt="new user" />
+          {props.publicId ? (
+            <Image
+              className="profile_photo"
+              cloudName="chitter"
+              publicId={props.publicId}
+            />
+          ) : (
+            <img src={BlueTit} alt="new user" />
+          )}
         </div>
         <div className="tweet_content">
           <div className="username">
             <a href={`profile/${props.username}`} className="profileLinks">
-            <strong>{props.username}</strong> 
-            <small className="usernameText">@{props.username}</small>
-            <small className="dateText">{formatDate(props.createdAt)}</small>
+              <strong>{props.username}</strong>
+              <small className="usernameText">@{props.username}</small>
+              <small className="dateText">{formatDate(props.createdAt)}</small>
             </a>
             {/* <div className="threeDots">
               <MoreHorizIcon/>
@@ -31,6 +40,7 @@ export default function Tweet(props) {
           </div>
 
           <div className="bodyText">{props.tweet}</div>
+          <div className="bodyText">{props.likes[0]}</div>
           <div className="tweet_functions">
             <ChatBubbleOutlineIcon className="chatBubble" />
             <RepeatIcon className="retweet" />

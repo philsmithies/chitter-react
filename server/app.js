@@ -63,6 +63,18 @@ app.get("/tweets", function (req, res) {
   });
 });
 
+app.get('/tweets/:id', (req, res) => {
+  Tweet.findOne({})
+  .then(tweet => {
+    if(!tweet) {
+      res.status(404).send();
+    }
+    res.send(tweet);
+  }).catch((e) => {
+    res.status(400).send(e);
+  })
+})
+
 app.get("/tweets/create", (req, res) => {
   res.render("new", { title: "New" });
 });
@@ -75,6 +87,7 @@ app.post("/new", async (req, res) => {
       body: req.body.tweet,
       username: req.user.username,
       userID: req.user._id,
+      likes: req.body.likes
     });
     await tweet.save();
     const userTweets = req.user;
@@ -111,6 +124,7 @@ app.post("/signup", (req, res) => {
 
       const newUser = new User({
         username: req.body.username,
+        fullName: req.body.fullName,
         password: hashedPassword,
         email: req.body.email,
         publicId: req.body.publicId

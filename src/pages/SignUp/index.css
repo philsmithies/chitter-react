@@ -1,5 +1,4 @@
 body{
-  margin: 0;
   padding: 0;
 }
 
@@ -9,24 +8,24 @@ body{
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: rgb(0,191,255);
-  background: linear-gradient(180deg, rgba(0,191,255,0.1) 33%, rgba(223,249,237,1) 100%);
+  background: rgb(219,219,219);
+  background: linear-gradient(180deg, #fff 56%, rgba(3,196,255,0.43881302521008403) 96%);
 }
 .signUpForm {
   border: lightgray solid 1px;
   width: 400px;
-  height: 400px;
+  height: 475px;
   border-radius: 15px;
   box-shadow: 0 1px 0 rgba(0,0,0,.15);
   padding: 3rem 3rem 4rem;
   background: white;
 }
 
-h2{
+.signupHeader{
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 400;
 }
 
-p{
+.accountText{
   color: grey;
 }

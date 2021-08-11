@@ -56,8 +56,7 @@ export default function LogInForm() {
       />
       <Button
         variant="contained"
-        color="primary"
-        style={{ margin: 30 }}
+        style={{ margin: 30, backgroundColor: "lightblue" }}
         onClick={login}
       >
         Submit

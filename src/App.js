@@ -7,12 +7,9 @@ import LogIn from "./pages/LogIn";
 import Profile from "./pages/Profile";
 import Footer from "./components/Footer";
 import NewTweet from "./pages/NewTweet";
-import {useContext} from 'react'
-import {UserContext} from './Contexts/UserContext'
 
 
 function App() {
-  const data = useContext(UserContext);
   return (
     <div className="App">
       <Router> 

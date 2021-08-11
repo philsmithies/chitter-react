@@ -8,6 +8,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  fullName: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -15,6 +19,9 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
+  },
+  bio: {
+    type: String,
   },
   publicId: String,
   tweets: [],

@@ -1,4 +1,3 @@
-import BlueTit from "./bluetit.jpeg";
 import RepeatIcon from "@material-ui/icons/Repeat";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";

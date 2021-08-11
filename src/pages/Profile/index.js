@@ -46,6 +46,7 @@ export default function Profile() {
           <div className="profile_wrapper">
             <ProfileWrapper
               username={data.username}
+              fullName={data.fullName}
               length={data.tweets.length}
               cloudName="chitter"
               publicId={data.publicId}
