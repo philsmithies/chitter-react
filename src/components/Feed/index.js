@@ -6,7 +6,7 @@ import './index.css'
 export default function Feed() {
   const [data, setData] = useState();
   const [userId, setUserId] = useState("123");
-  const [tweetId, setTweetId] = useState("6109ea950ce46324fe3e43eb")
+  const [tweetId, setTweetId] = useState()
   const [allData, setAllData] = useState([]);
 
   const getProfilePhoto = function (userId) {
@@ -65,7 +65,7 @@ export default function Feed() {
     <div>
       {allData.map((value, index) => (
         <div class="tweets_feed">
-          <Tweet id={value._id} tweet={value.body} username={value.username} createdAt={value.createdAt} publicId={data ? data.publicId : ''} likes={value.likes}/>
+          <Tweet id={value._id} tweet={value.body} username={value.username} createdAt={value.createdAt} publicId={data ? data.publicId : ''} likes={value.likes.length}/>
         </div>
       ))}
     </div>

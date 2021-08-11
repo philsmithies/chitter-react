@@ -7,10 +7,29 @@ import LinkIcon from "@material-ui/icons/Link";
 // import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { format } from "date-fns";
 import { Image } from "cloudinary-react";
+import axios from 'axios'
 
 export default function Tweet(props) {
   const formatDate = (date) => {
     return format(new Date(date), "E MMM dd yyyy");
+  };
+
+  const likeTweet = async () => {
+    try {
+      await axios.post(
+        "http://localhost:3001/tweets/" + props.id,
+        {
+          newLike: "hello",
+        },
+        {
+          withCredentials: true,
+        }
+      ).then((response) => {
+        console.log(response);
+      });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -40,11 +59,11 @@ export default function Tweet(props) {
           </div>
 
           <div className="bodyText">{props.tweet}</div>
-          <div className="bodyText">{props.likes[0]}</div>
+          <div className="bodyText">Likes : {props.likes}</div>
           <div className="tweet_functions">
             <ChatBubbleOutlineIcon className="chatBubble" />
             <RepeatIcon className="retweet" />
-            <FavoriteBorderIcon className="heart" />
+            <FavoriteBorderIcon className="heart" onClick={() => { likeTweet() }}/>
             <LinkIcon className="link" />
           </div>
         </div>

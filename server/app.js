@@ -75,6 +75,22 @@ app.get('/tweets/:id', (req, res) => {
   })
 })
 
+app.post('/tweets/:id', (req, res) => {
+  const newLike = req.body.newLike
+  Tweet.findOne({})
+  .then(tweet => {
+    if(!tweet) {
+      res.status(404).send();
+    }
+    tweet.likes.push("hello");
+    tweet.save();
+    console.log(tweet)
+    res.send(tweet);
+  }).catch((e) => {
+    res.status(400).send(e);
+  })
+})
+
 app.get("/tweets/create", (req, res) => {
   res.render("new", { title: "New" });
 });
