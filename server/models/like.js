@@ -5,11 +5,11 @@ const likeSchema  = new Schema({
   type: String,
   author: {
     type: Schema.Types.ObjectId,
-    ref: "user"
+    ref: "User"
   },
   tweet: {
     type: Schema.Types.ObjectId,
-    ref: "tweet"
+    ref: "Tweet"
   },
 }, { timestamps: true })
 

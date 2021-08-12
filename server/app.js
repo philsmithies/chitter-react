@@ -64,27 +64,28 @@ app.get("/users/create", UserControls.create)
 app.get("/users/:username", UserControls.find)
 
 app.get("/tweets/", TweetControls.all)
+// app.get('/tweets/find/:id', TweetControls.find)
 app.post("/tweets/:username/create", TweetControls.create)
 
 app.get("/likes/", LikeControls.all)
 app.post("/likes/:id/", LikeControls.create)
 
 
-app.post('/tweets/:id', (req, res) => {
-  const newLike = req.body.newLike
-  Tweet.findOne({id: req.body.id})
-  .then(tweet => {
-    if(!tweet) {
-      res.status(404).send();
-    }
-    tweet.likes.push("hello");
-    tweet.save();
-    console.log(tweet)
-    res.send(tweet);
-  }).catch((e) => {
-    res.status(400).send(e);
-  })
-})
+// app.post('/tweets/:id', (req, res) => {
+//   const newLike = req.body.newLike
+//   Tweet.findOne({id: req.body.id})
+//   .then(tweet => {
+//     if(!tweet) {
+//       res.status(404).send();
+//     }
+//     tweet.likes.push("hello");
+//     tweet.save();
+//     console.log(tweet)
+//     res.send(tweet);
+//   }).catch((e) => {
+//     res.status(400).send(e);
+//   })
+// })
 
 // sign up
 

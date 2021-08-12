@@ -21,10 +21,6 @@ const userSchema = new Schema({
     type: String,
   },
   publicId: String,
-  tweets: [{
-    type: Schema.Types.ObjectId,
-    ref: "tweet"
-  }],
 });
 
 // user.plugin(uniqueValidator, { message: 'Error, expected {VALUE} to be unique'})

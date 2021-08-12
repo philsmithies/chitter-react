@@ -55,7 +55,7 @@ export default function Tweet(props) {
           <div className="username">
             <a href={`profile/${props.username}`} className="profileLinks">
               <strong>{props.author}</strong>
-              <small className="usernameText">@{props.username}</small>
+              <small className="usernameText">@{props.username ? props.username : ''}</small>
               <small className="dateText">{formatDate(props.createdAt)}</small>
             </a>
             {/* <div className="threeDots">
