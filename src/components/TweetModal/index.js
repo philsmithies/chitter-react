@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
 import Axios from "axios";
+import { useContext } from "react";
+import { UserContext } from "../../Contexts/UserContext";
 
 export default function TweetModal(props) {
+  const data = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => {
     if(props.link){
@@ -31,13 +34,15 @@ export default function TweetModal(props) {
 
   const [tweet, setTweet] = useState("");
 
+  // app.get("/tweets/:username/create", TweetControls.create)
+
   const newTweet = async () => {
     try {
       await Axios.post(
-        "http://localhost:3001/new",
+        "http://localhost:3001/tweets/" + data.username + "/create/",
         {
-          tweet: tweet,
-          likes: []
+          text: tweet,
+          author: data
         },
         {
           withCredentials: true,

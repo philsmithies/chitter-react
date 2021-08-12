@@ -10,15 +10,12 @@ const userSchema = new Schema({
   },
   fullName: {
     type: String,
-    required: true,
   },
   email: {
     type: String,
-    required: true,
   },
   password: {
     type: String,
-    required: true,
   },
   bio: {
     type: String,
@@ -26,7 +23,7 @@ const userSchema = new Schema({
   publicId: String,
   tweets: [{
     type: Schema.Types.ObjectId,
-    ref: "Tweet"
+    ref: "tweet"
   }],
 });
 

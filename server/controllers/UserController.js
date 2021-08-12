@@ -11,7 +11,7 @@ let UserController = {
   },
   create: async(req, res) => {
     let newUser = new UserModel(req.body)
-    let savedUser = await newUser.savedUser()    
+    let savedUser = await newUser.save()    
     res.json(savedUser)
   },
   getAllTweets: async (req, res) => {

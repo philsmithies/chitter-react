@@ -8,8 +8,12 @@ import LinkIcon from "@material-ui/icons/Link";
 import { format } from "date-fns";
 import { Image } from "cloudinary-react";
 import axios from 'axios'
+import { useContext } from "react";
+import { UserContext } from "../../Contexts/UserContext";
+
 
 export default function Tweet(props) {
+  const data = useContext(UserContext);
   const formatDate = (date) => {
     return format(new Date(date), "E MMM dd yyyy");
   };
@@ -17,9 +21,10 @@ export default function Tweet(props) {
   const likeTweet = async () => {
     try {
       await axios.post(
-        "http://localhost:3001/tweets/" + props.identity,
+        "http://localhost:3001/likes/" + props.tweetId,
         {
-          newLike: "hello",
+          type: "like",
+          author: data, 
         },
         {
           withCredentials: true,
@@ -49,7 +54,7 @@ export default function Tweet(props) {
         <div className="tweet_content">
           <div className="username">
             <a href={`profile/${props.username}`} className="profileLinks">
-              <strong>{props.username}</strong>
+              <strong>{props.author}</strong>
               <small className="usernameText">@{props.username}</small>
               <small className="dateText">{formatDate(props.createdAt)}</small>
             </a>
@@ -58,8 +63,8 @@ export default function Tweet(props) {
             </div> */}
           </div>
 
-          <div className="bodyText">{props.tweet}</div>
-          <div className="bodyText">Likes : {props.likes}</div>
+          <div className="bodyText">{props.text}</div>
+          {/* <div className="bodyText">Likes : {props.likes}</div> */}
           <div className="tweet_functions">
             <ChatBubbleOutlineIcon className="chatBubble" />
             <RepeatIcon className="retweet" />

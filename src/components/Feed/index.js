@@ -9,33 +9,11 @@ export default function Feed() {
   const [tweetId, setTweetId] = useState()
   const [allData, setAllData] = useState([]);
 
-  const getProfilePhoto = function (userId) {
-    console.log("getProfileData");
-    if (!userId) {
-      axios({
-        method: "GET",
-        withCredentials: true,
-        url: "http://localhost:3001/profile",
-      }).then((res) => {
-        console.log(res.data);
-        setData(res.data);
-      });
-    } else {
-      axios({
-        method: "GET",
-        withCredentials: true,
-        url: "http://localhost:3001/profile/" + userId,
-      }).then((res) => {
-        console.log(res.data);
-        setData(res.data);
-      });
-    }
-  };
-
   const getTweets = () => {
     axios("http://localhost:3001/tweets")
       .then((response) => {
         setAllData(response.data);
+        console.log(response.data)
       })
       .catch((error) => {
         console.log("Error getting data: " + error);
@@ -57,7 +35,6 @@ export default function Feed() {
 
   useEffect(() => {
     getTweet()
-    getProfilePhoto(userId);
     getTweets()
   }, []);
 
@@ -65,7 +42,7 @@ export default function Feed() {
     <div>
       {allData.map((value, index) => (
         <div class="tweets_feed">
-          <Tweet identity={value._id} tweet={value.body} username={value.username} createdAt={value.createdAt} publicId={data ? data.publicId : ''} likes={value.likes.length}/>
+          <Tweet tweetId={value._id} text={value.text} username={value.username} createdAt={value.createdAt} publicId={data ? data.publicId : ''} />
         </div>
       ))}
     </div>

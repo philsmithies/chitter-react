@@ -1,13 +1,19 @@
-let TweetModel = require('../models/user.js')
+let TweetModel = require('../models/tweet.js')
 
 let TweetController = {
+  find: async (req, res) => {
+    // sort this id
+    let found = await TweetModel.find({id:  req.params.id})
+    res.json(found)
+  },
   all: async (req, res) => {
-    let allUsers = await TweetModel.find()
-    res.json(allUsers)
+    let getAllTweets = await TweetModel.find()
+    res.json(getAllTweets)
   },
   create: async(req, res) => {
     let newTweet = new TweetModel(req.body)
-    let savedTweet = await newTweet.savedUser()    
+    console.log(req.body)
+    let savedTweet = await newTweet.save()    
     res.json(savedTweet)
   }
 }

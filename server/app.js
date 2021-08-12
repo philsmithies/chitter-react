@@ -55,39 +55,20 @@ require('./passportConfig')(passport);
 
 const UserControls = require("./controllers/UserController.js")
 const TweetControls = require("./controllers/TweetController.js")
+const LikeControls = require("./controllers/LikeController.js")
 
 
-app.get("/users", UserControls.all)
+app.get("/users/", UserControls.all)
 app.get("/users/:username/tweets", UserControls.getAllTweets)
 app.get("/users/create", UserControls.create)
 app.get("/users/:username", UserControls.find)
 
 app.get("/tweets/", TweetControls.all)
-app.get("/tweets/:username/create", TweetControls.create)
+app.post("/tweets/:username/create", TweetControls.create)
 
+app.get("/likes/", LikeControls.all)
+app.post("/likes/:id/", LikeControls.create)
 
-
-app.get("/tweets", function (req, res) {
-  Tweet.find({}, function (err, tweets) {
-    const tweetsMap = [];
-    tweets.forEach(function (tweet) {
-      tweetsMap.push(tweet);
-    });
-    res.send(tweetsMap);
-  });
-});
-
-app.get('/tweets/:id', (req, res) => {
-  Tweet.findOne({})
-  .then(tweet => {
-    if(!tweet) {
-      res.status(404).send();
-    }
-    res.send(tweet);
-  }).catch((e) => {
-    res.status(400).send(e);
-  })
-})
 
 app.post('/tweets/:id', (req, res) => {
   const newLike = req.body.newLike
@@ -104,30 +85,6 @@ app.post('/tweets/:id', (req, res) => {
     res.status(400).send(e);
   })
 })
-
-app.get("/tweets/create", (req, res) => {
-  res.render("new", { title: "New" });
-});
-
-app.post("/new", async (req, res) => {
-  // res.send(req.user)
-  console.log(req.user.tweets);
-  try {
-    const tweet = new Tweet({
-      body: req.body.tweet,
-      username: req.user.username,
-      userID: req.user._id,
-      likes: req.body.likes
-    });
-    await tweet.save();
-    const userTweets = req.user;
-    userTweets.tweets.push(tweet);
-    await userTweets.save();
-    res.redirect("/");
-  } catch (err) {
-    console.error("Something went wrong", err);
-  }
-});
 
 // sign up
 
