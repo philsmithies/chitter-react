@@ -9,8 +9,9 @@ const tweetSchema  = new Schema({
   username: {
     type: String,
   },
-  userID: {
-    type: String,
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
   },
   likes: []
 }, { timestamps: true })

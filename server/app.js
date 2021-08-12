@@ -53,6 +53,20 @@ require('./passportConfig')(passport);
 
 // Routes
 
+const UserControls = require("./controllers/UserController.js")
+const TweetControls = require("./controllers/TweetController.js")
+
+
+app.get("/users", UserControls.all)
+app.get("/users/:username/tweets", UserControls.getAllTweets)
+app.get("/users/create", UserControls.create)
+app.get("/users/:username", UserControls.find)
+
+app.get("/tweets/", TweetControls.all)
+app.get("/tweets/:username/create", TweetControls.create)
+
+
+
 app.get("/tweets", function (req, res) {
   Tweet.find({}, function (err, tweets) {
     const tweetsMap = [];
@@ -77,7 +91,7 @@ app.get('/tweets/:id', (req, res) => {
 
 app.post('/tweets/:id', (req, res) => {
   const newLike = req.body.newLike
-  Tweet.findOne({})
+  Tweet.findOne({id: req.body.id})
   .then(tweet => {
     if(!tweet) {
       res.status(404).send();

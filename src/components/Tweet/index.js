@@ -17,7 +17,7 @@ export default function Tweet(props) {
   const likeTweet = async () => {
     try {
       await axios.post(
-        "http://localhost:3001/tweets/" + props.id,
+        "http://localhost:3001/tweets/" + props.identity,
         {
           newLike: "hello",
         },
