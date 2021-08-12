@@ -1,5 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {useContext} from 'react'
+import {UserContext} from './Contexts/UserContext'
 import "./App.css";
 import Index from "./pages/Index";
 import SignUp from "./pages/SignUp";
@@ -10,6 +12,8 @@ import NewTweet from "./pages/NewTweet";
 
 
 function App() {
+  const data = useContext(UserContext);
+  console.log(data)
   return (
     <div className="App">
       <Router> 
