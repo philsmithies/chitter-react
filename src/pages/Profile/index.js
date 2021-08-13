@@ -12,45 +12,46 @@ export default function Profile() {
   const [tweets, setTweets] = useState();
   const { userId } = useParams();
 
-  const getProfileData = function (userId) {
-    console.log("getProfileData");
-    if (!userId) {
-      axios({
-        method: "GET",
-        withCredentials: true,
-        url: "http://localhost:3001/profile",
-      }).then((res) => {
-        console.log(res.data);
-        setData(res.data);
-      });
-    } else {
-      axios({
-        method: "GET",
-        withCredentials: true,
-        url: "http://localhost:3001/profile/" + userId,
-      }).then((res) => {
-        setData(res.data);
-      });
-    }
-  };
-
-  const getTweets = async () => {
-    try {
-      await axios
-        .get("http://localhost:3001/users/" + userId + "/tweets/")
-        .then((response) => {
-          setTweets(response.data);
-          console.log(tweets);
-        });
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
-    getTweets();
-    getProfileData(userId);
-  }, []);
+    const getProfileData = function (userId) {
+      console.log("getProfileData");
+      if (!userId) {
+        axios({
+          method: "GET",
+          withCredentials: true,
+          url: "http://localhost:3001/profile",
+        }).then((res) => {
+          console.log(res.data);
+          setData(res.data);
+        });
+      } else {
+        axios({
+          method: "GET",
+          withCredentials: true,
+          url: "http://localhost:3001/profile/" + userId,
+        }).then((res) => {
+          setData(res.data);
+        });
+      }
+    };
+  
+    const getTweets = async () => {
+      try {
+        await axios
+          .get("http://localhost:3001/users/" + userId + "/tweets/")
+          .then((response) => {
+            setTweets(response.data);
+            console.log(tweets);
+          });
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getProfileData(userId)
+    getTweets()
+
+  }, [tweets, userId]);
 
   return (
     <div className="profile_grid">
@@ -70,7 +71,7 @@ export default function Profile() {
               ? tweets.map((value, index) => (
                   <div>
                     <Tweet
-                      tweetId={value._id}
+                      key={index}
                       fullName={value.author.fullName}
                       publicId={value.author ? value.author.publicId : ""}
                       text={value.text}

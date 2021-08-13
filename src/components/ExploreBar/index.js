@@ -6,7 +6,7 @@ import "./index.css";
 export default function ExploreBar() {
   const data = useContext(UserContext);
   return (
-    <div class="explore_wrapper">
+    <div className="explore_wrapper">
       <div>
         <a href="/">
           <img src={process.env.PUBLIC_URL + "/img/bird.png"} className="birdLogo" alt="chitter logo" />

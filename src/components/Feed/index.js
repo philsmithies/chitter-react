@@ -36,19 +36,16 @@ export default function Feed() {
   }, []);
 
   return (
-    <div>
+    <div className="tweets_feed">
       {allData.map((value, index) => (
-        <div class="tweets_feed">
-          {console.log(value.author)}
           <Tweet
-            tweetId={value._id}
+            key={index}
             fullName={value.author.fullName}
             publicId={value.author ? value.author.publicId : ""}
             text={value.text}
             username={value.author ? value.author.username : ""}
             createdAt={value.createdAt}
           />
-        </div>
       ))}
     </div>
   );

@@ -1,7 +1,5 @@
-import SignUpBtn from "../Buttons/SignUpBtn";
-import LogInBtn from "../Buttons/LogInBtn";
+import SignUpBarBtn from "../Buttons/SignUpBarBtn";
 import ProfileBtn from "../Buttons/ProfileBtn";
-import LogOutBtn from "../Buttons/LogOutBtn";
 import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
 import "./index.css";
@@ -14,14 +12,14 @@ export default function SignUpBar() {
         <div>
           <h2>Hello {data.username}</h2>
           <ProfileBtn username={data.username} />
-          <LogOutBtn />
+          <SignUpBarBtn text={"Sign Out"} link={'/signout'}/>
         </div>
       ) : (
         <div>
           <h1>New To Chitter?</h1>
           <p>Sign up now to get your own personalized timeline!</p>
-          <SignUpBtn />
-          <LogInBtn />
+          <SignUpBarBtn text={"Sign Up"} link={"/signup"}/>
+          <SignUpBarBtn text={"Log In"} link={"/login"}/>
         </div>
       )}
     </div>

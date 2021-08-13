@@ -6,7 +6,7 @@ import './styles.css'
 export default function Home() {
   return(
     <div className="main_grid">
-      <div class="main_content">
+      <div className="main_content">
         <Feed />
       </div>
       <div className="sidebar">
