@@ -14,7 +14,7 @@ body{
 .signUpForm {
   border: lightgray solid 1px;
   width: 400px;
-  height: 475px;
+  max-height: 600px;
   border-radius: 15px;
   box-shadow: 0 1px 0 rgba(0,0,0,.15);
   padding: 3rem 3rem 4rem;
@@ -29,3 +29,4 @@ body{
 .accountText{
   color: grey;
 }
+
