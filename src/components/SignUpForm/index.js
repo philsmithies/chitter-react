@@ -34,28 +34,16 @@ export default function SignUpForm() {
   const [passwordConfirmError, setPasswordConfirmError] = useState(false);
 
   const [errorMsg, setErrorMsg] = useState("");
-  const [newMsg, setNewMsg] = useState("");
   const [emailMsg, setEmailMsg] = useState("");
   const [userMsg, setUserMsg] = useState("");
 
-  // const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{4,})");
   const emailRegex = new RegExp(
     "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$"
   );
+
   const userRegex = new RegExp("\\s+");
-  const passwordCriteria = [
-    "Password does not meet criteria:",
-    "\n• Must be over 4 characters long",
-    "\n• Must include numbers and letters",
-    "\n• Must include at least 1 upper and lower case letter",
-  ];
+
   let newMsgTimeoutHandle = 0;
-  let newText = passwordCriteria
-    .join("")
-    .split("\n")
-    .map((i) => {
-      return <p>{i}</p>;
-    });
 
   const onChange = (e) => {
     setImage(e.target.files[0]);
@@ -231,7 +219,7 @@ export default function SignUpForm() {
             </Button>
           </label>
         </div>
-        <div className="uploadBtn">
+        <div   className="uploadBtn">
           <Button
             variant="contained"
             style={{width: 290, backgroundColor: "lightblue" }}

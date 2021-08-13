@@ -6,6 +6,8 @@ import Axios from "axios";
 export default function LogInForm() {
   const [loginUsername, setLoginUsername] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [noUserMsg, setNoUserMsg] = useState('');
+  const [noUserError, setNoUserError] = useState(false);
 
   const login = () => {
     Axios({
@@ -19,6 +21,9 @@ export default function LogInForm() {
     }).then((res) => {
       if (res.data === "Successfully Authenticated") {
         window.location.href = "/";
+      } else if (res.data === "No User Exists") {
+        setNoUserMsg("User Not Found");
+        setNoUserError(true);
       }
     });
   };
@@ -26,6 +31,8 @@ export default function LogInForm() {
   return (
     <form autoComplete="off">
       <TextField
+        error={noUserError}
+        helperText={noUserMsg}
         id="standard-full-width"
         label="username"
         placeholder="@jim"
