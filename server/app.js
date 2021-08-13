@@ -1,15 +1,14 @@
-const express = require('express');
+const express = require("express");
 const morgan = require("morgan");
-const passport = require('passport');
-const passportLocal = require('passport-local').Strategy;
-const cookieParser = require('cookie-parser');
-const bcrypt = require('bcrypt');
-const session = require('express-session');
-const bodyParser = require('body-parser');
-const cors = require('cors')
-const mongoose = require('mongoose');
+const passport = require("passport");
+const passportLocal = require("passport-local").Strategy;
+const cookieParser = require("cookie-parser");
+const bcrypt = require("bcrypt");
+const session = require("express-session");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const mongoose = require("mongoose");
 const User = require("./models/user");
-const Tweet = require("./models/tweet");
 require("dotenv").config();
 
 //----------------------------------------- END OF IMPORTS--------------------------------------------------- //
@@ -30,62 +29,48 @@ mongoose
 // allows us to write app and the crud action we want ex. app.get | app.post | app.delete etc...
 const app = express();
 
-app.use(express.json()) // =>  allows us to read the request or req body
-app.use(cors({
-  origin: "http://localhost:3000",
-  credentials: true
-}))
-app.use(morgan('tiny'))
+app.use(express.json()); // =>  allows us to read the request or req body
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+app.use(morgan("tiny"));
 app.use(bodyParser.json());
-app.use(express.urlencoded({extended: true}));
-app.use(session({
-    secret: 'secretcode',
+app.use(express.urlencoded({ extended: true }));
+app.use(
+  session({
+    secret: "secretcode",
     resave: true,
     saveUninitialized: true,
-}));
+  })
+);
 
-app.use(cookieParser('secretecode'));
+app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
 app.use(passport.session());
-require('./passportConfig')(passport);
+require("./passportConfig")(passport);
 
 //----------------------------------------- END OF MIDDLEWARE--------------------------------------------------- //
 
 // Routes
 
-const UserControls = require("./controllers/UserController.js")
-const TweetControls = require("./controllers/TweetController.js")
-const LikeControls = require("./controllers/LikeController.js")
+const UserControls = require("./controllers/UserController.js");
+const TweetControls = require("./controllers/TweetController.js");
+const LikeControls = require("./controllers/LikeController.js");
 
+app.get("/users/", UserControls.all);
+app.get("/users/:username/tweets", UserControls.getAllTweets);
+app.get("/users/create", UserControls.create);
+app.get("/users/:username", UserControls.find);
 
-app.get("/users/", UserControls.all)
-app.get("/users/:username/tweets", UserControls.getAllTweets)
-app.get("/users/create", UserControls.create)
-app.get("/users/:username", UserControls.find)
+app.get("/tweets/", TweetControls.all);
+app.get("/tweets/find/:id", TweetControls.find);
+app.post("/tweets/:username/create", TweetControls.create);
 
-app.get("/tweets/", TweetControls.all)
-// app.get('/tweets/find/:id', TweetControls.find)
-app.post("/tweets/:username/create", TweetControls.create)
-
-app.get("/likes/", LikeControls.all)
-app.post("/likes/:id/", LikeControls.create)
-
-
-// app.post('/tweets/:id', (req, res) => {
-//   const newLike = req.body.newLike
-//   Tweet.findOne({id: req.body.id})
-//   .then(tweet => {
-//     if(!tweet) {
-//       res.status(404).send();
-//     }
-//     tweet.likes.push("hello");
-//     tweet.save();
-//     console.log(tweet)
-//     res.send(tweet);
-//   }).catch((e) => {
-//     res.status(400).send(e);
-//   })
-// })
+app.get("/likes/", LikeControls.all);
+app.post("/likes/:id/", LikeControls.create);
 
 // sign up
 
@@ -115,11 +100,11 @@ app.post("/signup", (req, res) => {
         fullName: req.body.fullName,
         password: hashedPassword,
         email: req.body.email,
-        publicId: req.body.publicId
+        publicId: req.body.publicId,
       });
       await newUser.save();
       res.send("User Created");
-      console.log(req.user)
+      console.log(req.user);
     }
   });
 });
@@ -135,36 +120,19 @@ app.get("/user", (req, res) => {
   res.send(req.user); // The req.user stores the entire user that has been authenticated inside of it.
 });
 
-
 // profile page
 
-app.get('/profile/:username', (req, res) => {
-  User.findOne({username:req.params.username})
-  .then(user => {
-    if(!user) {
-      res.status(404).send();
-    }
-    res.send(user);
-  }).catch((e) => {
-    res.status(400).send(e);
-  })
-})
-
-
-// // catch 404 and forward to error handler
-// app.use(function (req, res, next) {
-//   next(createError(404));
-// });
-
-// // error handler
-// app.use(function (err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get("env") === "development" ? err : {};
-
-//   // render the error page
-//   res.status(404).render("404", { title: "404" });
-//   res.render("error");
-// });
+app.get("/profile/:username", (req, res) => {
+  User.findOne({ username: req.params.username })
+    .then((user) => {
+      if (!user) {
+        res.status(404).send();
+      }
+      res.send(user);
+    })
+    .catch((e) => {
+      res.status(400).send(e);
+    });
+});
 
 module.exports = app;

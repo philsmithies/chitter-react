@@ -3,8 +3,7 @@ import { TextField } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
-import IconButton from "@material-ui/core/IconButton";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import "./index.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,14 +21,48 @@ export default function SignUpForm() {
 
   const url = "https://api.cloudinary.com/v1_1/dryaxqxie/image/upload";
   const preset = "chitter";
+  const [passwordMsg, setPasswordMsg] = useState("");
   const [image, setImage] = useState("");
-  const [passwordReg, setPasswordReg] = useState("");
   const [emailReg, setEmailReg] = useState("");
+  const [passwordReg, setPasswordReg] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [usernameReg, setUsernameReg] = useState("");
   const [fullNameReg, setFullNameReg] = useState("");
 
+  const [usernameError, setUsernameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [passwordConfirmError, setPasswordConfirmError] = useState(false);
+
+  const [errorMsg, setErrorMsg] = useState("");
+  const [newMsg, setNewMsg] = useState("");
+  const [emailMsg, setEmailMsg] = useState("");
+  const [userMsg, setUserMsg] = useState("");
+
+  // const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{4,})");
+  const emailRegex = new RegExp(
+    "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$"
+  );
+  const userRegex = new RegExp("\\s+");
+  const passwordCriteria = [
+    "Password does not meet criteria:",
+    "\n• Must be over 4 characters long",
+    "\n• Must include numbers and letters",
+    "\n• Must include at least 1 upper and lower case letter",
+  ];
+  let newMsgTimeoutHandle = 0;
+  let newText = passwordCriteria
+    .join("")
+    .split("\n")
+    .map((i) => {
+      return <p>{i}</p>;
+    });
+
   const onChange = (e) => {
     setImage(e.target.files[0]);
+  };
+
+  const componentWillUnmount = () => {
+    clearTimeout(newMsgTimeoutHandle);
   };
 
   const register = async () => {
@@ -53,8 +86,17 @@ export default function SignUpForm() {
         }
       ).then((response) => {
         console.log(response);
-        if (response.data) {
+        if (response.data === "User Created") {
           window.location.href = "/login";
+        } else if (response.data !== "User Created") {
+          setErrorMsg(
+            "User already exists, please sign in or create new account"
+          );
+          clearTimeout(newMsgTimeoutHandle);
+          newMsgTimeoutHandle = setTimeout(() => {
+            setErrorMsg("");
+            newMsgTimeoutHandle = 0;
+          }, 6500);
         }
       });
     } catch (err) {
@@ -62,107 +104,143 @@ export default function SignUpForm() {
     }
   };
 
+  const checkValidation = (e) => {
+    if (!emailRegex.test(emailReg)) {
+      setEmailError(true);
+      setEmailMsg("Not a valid email address");
+      clearTimeout(newMsgTimeoutHandle);
+      newMsgTimeoutHandle = setTimeout(() => {
+        setEmailMsg("");
+        newMsgTimeoutHandle = 0;
+      }, 6500);
+    } else if (passwordReg !== confirmPassword) {
+      setPasswordMsg("Passwords do not match");
+      setPasswordConfirmError(true);
+      clearTimeout(newMsgTimeoutHandle);
+      newMsgTimeoutHandle = setTimeout(() => {
+        setPasswordMsg("");
+        newMsgTimeoutHandle = 0;
+      }, 6500);
+    } else if (usernameReg === "" || userRegex.test(usernameReg)) {
+      setUserMsg("Please enter a valid username without spaces");
+      setUsernameError(true);
+      clearTimeout(newMsgTimeoutHandle);
+      newMsgTimeoutHandle = setTimeout(() => {
+        setUserMsg("");
+        newMsgTimeoutHandle = 0;
+      }, 6500);
+    } else {
+      register();
+    }
+  };
+
   return (
-    <form autoComplete="off">
-      <TextField
-        id="standard-full-width"
-        label="username"
-        placeholder="@jim"
-        fullWidth
-        margin="normal"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        onChange={(e) => {
-          setUsernameReg(e.target.value);
-        }}
-      />
-      <TextField
-        id="standard-full-width"
-        label="full name"
-        placeholder="JimBob"
-        fullWidth
-        margin="normal"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        onChange={(e) => {
-          setFullNameReg(e.target.value);
-        }}
-      />
-      <TextField
-        type="email"
-        id="standard-full-width"
-        label="email"
-        placeholder="jack@chitter.com"
-        fullWidth
-        margin="normal"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        onChange={(e) => {
-          setEmailReg(e.target.value);
-        }}
-      />
-      <TextField
-        type="password"
-        id="standard-full-width"
-        label="password"
-        placeholder="***********"
-        fullWidth
-        margin="normal"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        onChange={(e) => {
-          setPasswordReg(e.target.value);
-        }}
-      />
-      <div className={classes.root} style={{ marginTop: 30 }}>
-        <input
-          accept="image/*"
-          className={classes.input}
-          id="contained-button-file"
-          multiple
-          type="file"
-          onChange={onChange}
+    <div>
+      {errorMsg}
+      <form autoComplete="off">
+        <TextField
+          error={usernameError}
+          helperText={userMsg}
+          id="standard-full-width"
+          label="username"
+          placeholder="@jim"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={(e) => {
+            setUsernameReg(e.target.value);
+          }}
         />
-        <label htmlFor="contained-button-file">
-          <Button variant="contained" component="span">
-            Upload Profile Picture
+        <TextField
+          id="standard-full-width"
+          label="full name"
+          placeholder="JimBob"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={(e) => {
+            setFullNameReg(e.target.value);
+          }}
+        />
+        <TextField
+          error={emailError}
+          helperText={emailMsg}
+          type="email"
+          id="standard-full-width"
+          label="email"
+          placeholder="jack@chitter.com"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={(e) => {
+            setEmailReg(e.target.value);
+          }}
+        />
+        <TextField
+          type="password"
+          id="standard-full-width"
+          label="password"
+          placeholder="***********"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={(e) => {
+            setPasswordReg(e.target.value);
+          }}
+        />
+        <TextField
+          error={passwordConfirmError}
+          helperText={passwordMsg}
+          type="password"
+          id="standard-full-width"
+          label="confirm password"
+          placeholder="***********"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={(e) => {
+            setConfirmPassword(e.target.value);
+          }}
+        />
+        <div
+          className={classes.root}
+          style={{ margin: 30 }}
+          className="uploadBtn"
+        >
+          <input
+            accept="image/*"
+            className={classes.input}
+            id="contained-button-file"
+            multiple
+            type="file"
+            onChange={onChange}
+          />
+          <label htmlFor="contained-button-file">
+            <Button variant="contained" component="span">
+              Upload Profile Picture
+            </Button>
+          </label>
+        </div>
+        <div className="uploadBtn">
+          <Button
+            variant="contained"
+            style={{width: 290, backgroundColor: "lightblue" }}
+            onClick={checkValidation}
+          >
+            Submit
           </Button>
-        </label>
-        <input
-          accept="image/*"
-          className={classes.input}
-          id="icon-button-file"
-          type="file"
-          onChange={onChange}
-        />
-        <label htmlFor="icon-button-file">
-          <IconButton aria-label="upload picture" component="span">
-            <PhotoCamera />
-          </IconButton>
-        </label>
-      </div>
-      {/* <TextField
-        type="password"
-        id="standard-full-width"
-        label="confirm password"
-        placeholder="***********"
-        fullWidth
-        margin="normal"
-        InputLabelProps={{
-          shrink: true,
-        }}
-      /> */}
-      <Button
-        variant="contained"
-        style={{ margin: 30, width: 290, backgroundColor: "lightblue" }}
-        onClick={register}
-      >
-        Submit
-      </Button>
-    </form>
+        </div>
+      </form>
+    </div>
   );
 }
