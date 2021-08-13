@@ -8,6 +8,10 @@
   flex-direction: column;
 }
 
+.welcome_title{
+  text-align: center;
+}
+
 .SignUpBarWrapper h1 {
   font-size: 24px;
   font-weight: 700;

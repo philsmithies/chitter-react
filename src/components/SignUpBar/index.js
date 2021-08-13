@@ -10,9 +10,9 @@ export default function SignUpBar() {
     <div className="SignUpBarWrapper">
       {data ? (
         <div>
-          <h2>Hello {data.username}</h2>
+          <h2 class="welcome_title">Hello {data.username.charAt(0).toUpperCase() + data.username.slice(1)}</h2>
           <ProfileBtn username={data.username} />
-          <SignUpBarBtn text={"Sign Out"} link={'/signout'}/>
+          <SignUpBarBtn text={"Log Out"} link={'/logout'}/>
         </div>
       ) : (
         <div>
