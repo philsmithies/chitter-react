@@ -10,6 +10,9 @@ const tweetSchema  = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User"
   },
+  publicId: {
+    type: String
+  },
   // likes: [{
   //   type: Schema.Types.ObjectId,
   //   ref: "like"
