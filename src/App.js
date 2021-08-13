@@ -1,19 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import {useContext} from 'react'
-import {UserContext} from './Contexts/UserContext'
-import "./App.css";
-import Index from "./pages/Index";
+import Index from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
 import Profile from "./pages/Profile";
 import Footer from "./components/Footer";
-import NewTweet from "./pages/NewTweet";
 
 
 function App() {
-  const data = useContext(UserContext);
-  console.log(data)
   return (
     <div className="App">
       <Router> 
@@ -22,7 +16,6 @@ function App() {
           <Route path="/signup" exact component={SignUp} />
           <Route path="/login" exact component={LogIn} />
           <Route path="/profile/:userId" exact component={Profile} />
-          <Route path="/new" exact component={NewTweet} />
         </Switch>
       </Router>
       <Footer/>

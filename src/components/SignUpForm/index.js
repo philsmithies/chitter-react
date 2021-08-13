@@ -28,10 +28,8 @@ export default function SignUpForm() {
   const [usernameReg, setUsernameReg] = useState("");
   const [fullNameReg, setFullNameReg] = useState("");
 
-
   const onChange = (e) => {
     setImage(e.target.files[0]);
-    const file = e.target.files[0];
   };
 
   const register = async () => {

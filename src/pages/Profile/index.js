@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import BlueTit from "./bluetit.jpeg";
 import "./index.css";
 import { useParams } from "react-router-dom";
-import ProfileTweet from "../../components/ProfileTweet/";
+import Tweet from "../../components/Tweet/";
 import ExploreBar from "../../components/ExploreBar";
 import SignUpBar from "../../components/SignUpBar";
 import ProfileWrapper from "../../components/ProfileWrapper";
@@ -30,7 +29,6 @@ export default function Profile() {
         withCredentials: true,
         url: "http://localhost:3001/profile/" + userId,
       }).then((res) => {
-        // console.log(res.data);
         setData(res.data);
       });
     }
@@ -71,12 +69,13 @@ export default function Profile() {
             {tweets
               ? tweets.map((value, index) => (
                   <div>
-                    <ProfileTweet
-                      tweet={value.text}
-                      username={value.author.username}
-                      publicId={
-                        value.author.publicId ? value.author.publicId : BlueTit
-                      }
+                    <Tweet
+                      tweetId={value._id}
+                      fullName={value.author.fullName}
+                      publicId={value.author ? value.author.publicId : ""}
+                      text={value.text}
+                      username={value.author ? value.author.username : ""}
+                      createdAt={value.createdAt}
                     />
                   </div>
                 ))

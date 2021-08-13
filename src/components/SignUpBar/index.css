@@ -1,4 +1,4 @@
-.SignUpBarWrapper{
+.SignUpBarWrapper {
   border: 1px solid #e6ecf0;
   border-radius: 15px;
   padding: 0 0.75rem 0.75rem;
@@ -8,15 +8,14 @@
   flex-direction: column;
 }
 
-.SignUpBarWrapper h1{
+.SignUpBarWrapper h1 {
   font-size: 24px;
   font-weight: 700;
   justify-self: flex-start;
   align-self: flex-start;
 }
 
-
-.SignUpBarWrapper p{
+.SignUpBarWrapper p {
   font-weight: 700;
   text-align: left;
 }

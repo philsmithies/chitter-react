@@ -1,5 +1,4 @@
 .profile_wrapper {
-
   text-align: left;
 }
 
@@ -78,11 +77,11 @@
   padding-bottom: 2em;
 }
 
-.bio_text span{
+.bio_text span {
   color: grey;
   size: 0.8rem;
 }
 
-.tweetsSpan{
+.tweetsSpan {
   color: gray;
 }

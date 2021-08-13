@@ -1,13 +1,9 @@
 import ExploreBar from '../../components/ExploreBar'
 import SignUpBar from '../../components/SignUpBar'
 import Feed from '../../components/Feed'
-import Footer from '../../components/Footer'
-import { useContext } from "react";
-import { UserContext } from "../../Contexts/UserContext";
 import './styles.css'
 
-export default function Index() {
-  const data = useContext(UserContext);
+export default function Home() {
   return(
     <div className="main_grid">
       <div class="main_content">

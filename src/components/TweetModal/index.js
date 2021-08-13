@@ -34,8 +34,6 @@ export default function TweetModal(props) {
 
   const [tweet, setTweet] = useState("");
 
-  // app.get("/tweets/:username/create", TweetControls.create)
-
   const newTweet = async () => {
     try {
       await Axios.post(
