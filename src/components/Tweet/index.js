@@ -1,5 +1,4 @@
 import "./index.css";
-import BlueTit from "./bluetit.jpeg";
 import RepeatIcon from "@material-ui/icons/Repeat";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -49,7 +48,7 @@ export default function Tweet(props) {
               publicId={props.publicId}
             />
           ) : (
-            <img src={BlueTit} alt="new user" />
+            <img src={process.env.PUBLIC_URL + "/img/bluetit.jpg"} alt="new user"></img>
           )}
         </div>
         <div className="tweet_content">
@@ -68,7 +67,6 @@ export default function Tweet(props) {
           </div>
 
           <div className="bodyText">{props.text}</div>
-          {/* <div className="bodyText">Likes : {props.likes}</div> */}
           <div className="tweet_functions">
             <ChatBubbleOutlineIcon className="chatBubble" />
             <RepeatIcon className="retweet" />
