@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Axios from "axios";
+import axios from "axios";
+import BlueTit from "./bluetit.jpeg";
 import "./index.css";
 import { useParams } from "react-router-dom";
 import ProfileTweet from "../../components/ProfileTweet/";
@@ -9,12 +10,13 @@ import ProfileWrapper from "../../components/ProfileWrapper";
 
 export default function Profile() {
   const [data, setData] = useState();
+  const [tweets, setTweets] = useState();
   const { userId } = useParams();
 
   const getProfileData = function (userId) {
     console.log("getProfileData");
     if (!userId) {
-      Axios({
+      axios({
         method: "GET",
         withCredentials: true,
         url: "http://localhost:3001/profile",
@@ -23,21 +25,34 @@ export default function Profile() {
         setData(res.data);
       });
     } else {
-      Axios({
+      axios({
         method: "GET",
         withCredentials: true,
         url: "http://localhost:3001/profile/" + userId,
       }).then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setData(res.data);
       });
     }
   };
 
+  const getTweets = async () => {
+    try {
+      await axios
+        .get("http://localhost:3001/users/" + userId + "/tweets/")
+        .then((response) => {
+          setTweets(response.data);
+          console.log(tweets);
+        });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
-    console.log("user id is ", userId);
+    getTweets();
     getProfileData(userId);
-  }, [userId]);
+  }, []);
 
   return (
     <div className="profile_grid">
@@ -47,17 +62,25 @@ export default function Profile() {
             <ProfileWrapper
               username={data.username}
               fullName={data.fullName}
-              length={data.tweets.length}
+              length={tweets ? tweets.length : ""}
               cloudName="chitter"
               publicId={data.publicId}
             />
           </div>
           <div class="profile_content">
-            {data.tweets.map((value, index) => (
-              <div>
-                <ProfileTweet tweet={value.body} username={value.username} publicId={data.publicId}/>
-              </div>
-            ))}
+            {tweets
+              ? tweets.map((value, index) => (
+                  <div>
+                    <ProfileTweet
+                      tweet={value.text}
+                      username={value.author.username}
+                      publicId={
+                        value.author.publicId ? value.author.publicId : BlueTit
+                      }
+                    />
+                  </div>
+                ))
+              : ""}
           </div>
         </div>
       ) : null}

@@ -27,11 +27,15 @@ export default function ProfileWrapper(props) {
       </div>
       <div className="bio_wrapper">
         <div className="follow_wrapper">
+        {props.publicId ? (
           <Image
             className="profile_hero"
             cloudName="chitter"
             publicId={props.publicId}
           />
+          ) : (
+           <img src={BlueTit} alt="new user"  className="profile_hero"/>
+           )}
           <div className="followBtn">Follow</div>
         </div>
         <div className="bio_text">

@@ -57,10 +57,12 @@
 
 .profileLinks{
   text-decoration: none;
+  color: black;
 }
 
 .profileLinks:hover{
   text-decoration: underline;
+  color: black;
 }
 
 .dateText{

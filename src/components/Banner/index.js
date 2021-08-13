@@ -1,10 +1,9 @@
-import BannerImg from './banner.jpeg'
-import './index.css'
+import "./index.css";
 
-export default function Banner(props){
-  return(
+export default function Banner(props) {
+  return (
     <div className="bannerimg">
-    <img src={BannerImg} alt="banner" ></img>
+      <img src={process.env.PUBLIC_URL + "/img/banner.jpg"} alt="banner"></img>
     </div>
-  )
+  );
 }

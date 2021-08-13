@@ -1,4 +1,5 @@
 let UserModel = require('../models/user.js')
+let TweetModel = require('../models/tweet.js')
 
 let UserController = {
   find: async (req, res) => {
@@ -15,9 +16,11 @@ let UserController = {
     res.json(savedUser)
   },
   getAllTweets: async (req, res) => {
-    let foundUser = await UserModel.find({username: req.params.username}).populate("tweets")
+    const reqUser = await UserModel.findOne({ username: req.params.username });
+    let foundUser = await TweetModel.find({author: reqUser._id}).populate("author").sort({ createdAt: 'desc' })
     res.json(foundUser)
   }
 }
+
 
 module.exports = UserController

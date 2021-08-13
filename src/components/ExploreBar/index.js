@@ -1,5 +1,3 @@
-import Bird from "./bird.png";
-import Hashtag from "./hashtag.png";
 import TweetModal from "../TweetModal";
 import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
@@ -11,13 +9,13 @@ export default function ExploreBar() {
     <div class="explore_wrapper">
       <div>
         <a href="/">
-          <img src={Bird} className="birdLogo" alt="chitter logo" />
+          <img src={process.env.PUBLIC_URL + "/img/bird.png"} className="birdLogo" alt="chitter logo" />
         </a>
       </div>
       <div>
-      <a href="/">
+        <a href="/">
           <h1 className="menuItem">
-            <img src={Hashtag} alt="hashtag" className="hashtag" /> Explore
+            <img src={process.env.PUBLIC_URL + "/img/hashtag.png"} alt="hashtag" className="hashtag" /> Explore
           </h1>
         </a>
         {data ? <TweetModal /> : <TweetModal link={"/signup"} />}

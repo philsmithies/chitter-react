@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { TextField } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Axios from "axios";
@@ -7,7 +6,6 @@ import Axios from "axios";
 export default function LogInForm() {
   const [loginUsername, setLoginUsername] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-  // const [data, setData] = useState(null);
 
   const login = () => {
     Axios({

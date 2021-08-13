@@ -1,5 +1,4 @@
 .main_grid {
-  /* background-color: rgb(128, 155, 238); */
   width: 95vw;
   display: grid;
   grid-template-columns: 1fr 600px 1fr;
@@ -14,13 +13,31 @@
 }
 
 .sidebar{
-  /* background-color: rgb(128, 155, 238); */
   grid-column: 1 / 2;
   grid-row: 1 / 2;
 }
 
 .signupbar{
-  /* background-color: rgb(128, 155, 238); */
   grid-column: 3 / 4;
   grid-row: 1 / 2;
+}
+
+.project_text{
+  font-size: 0.95em;
+  color: darkgray;
+  font-weight: 700;
+  margin: 2rem;
+}
+
+.name_text{
+  font-size: 0.95em;
+  color: rgb(130, 118, 208);
+  font-weight: 700;
+}
+
+.name_text {
+  text-decoration: none;
+}
+.name_text:hover{
+  color: black;
 }

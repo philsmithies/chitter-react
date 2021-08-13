@@ -7,10 +7,9 @@ import LinkIcon from "@material-ui/icons/Link";
 // import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { format } from "date-fns";
 import { Image } from "cloudinary-react";
-import axios from 'axios'
+import axios from "axios";
 import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
-
 
 export default function Tweet(props) {
   const data = useContext(UserContext);
@@ -20,18 +19,20 @@ export default function Tweet(props) {
 
   const likeTweet = async () => {
     try {
-      await axios.post(
-        "http://localhost:3001/likes/" + props.tweetId,
-        {
-          type: "like",
-          author: data, 
-        },
-        {
-          withCredentials: true,
-        }
-      ).then((response) => {
-        console.log(response);
-      });
+      await axios
+        .post(
+          "http://localhost:3001/likes/" + props.tweetId,
+          {
+            type: "like",
+            author: data,
+          },
+          {
+            withCredentials: true,
+          }
+        )
+        .then((response) => {
+          console.log(response);
+        });
     } catch (err) {
       console.error(err);
     }
@@ -54,10 +55,13 @@ export default function Tweet(props) {
         <div className="tweet_content">
           <div className="username">
             <a href={`profile/${props.username}`} className="profileLinks">
-              <strong>{props.author}</strong>
-              <small className="usernameText">@{props.username ? props.username : ''}</small>
+              <strong>{props.fullName}</strong>
+              </a>
+              <small className="usernameText">
+                @{props.username ? props.username : ""}
+              </small>
               <small className="dateText">{formatDate(props.createdAt)}</small>
-            </a>
+
             {/* <div className="threeDots">
               <MoreHorizIcon/>
             </div> */}
@@ -68,7 +72,12 @@ export default function Tweet(props) {
           <div className="tweet_functions">
             <ChatBubbleOutlineIcon className="chatBubble" />
             <RepeatIcon className="retweet" />
-            <FavoriteBorderIcon className="heart" onClick={() => { likeTweet() }}/>
+            <FavoriteBorderIcon
+              className="heart"
+              onClick={() => {
+                likeTweet();
+              }}
+            />
             <LinkIcon className="link" />
           </div>
         </div>
