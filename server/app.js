@@ -10,6 +10,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const User = require("./models/user");
 require("dotenv").config();
+let TweetModel = require('./models/tweet.js')
 
 //----------------------------------------- END OF IMPORTS--------------------------------------------------- //
 
@@ -108,6 +109,23 @@ app.post("/signup", (req, res) => {
     }
   });
 });
+
+app.post("/new", async (req, res) => {
+      req.body.author = req.user._id;
+      let newTweet = new TweetModel(req.body)
+      console.log(newTweet);
+      await newTweet.save()  
+      res.send("Tweet Created");
+      // res.json(savedTweet)
+});
+
+// create: async(req, res) => {
+//   req.body.author = req.user._id;
+//   let newTweet = new TweetModel(req.body)
+//   console.log(req.body)
+//   let savedTweet = await newTweet.save()    
+//   res.json(savedTweet)
+// }
 
 // log out
 app.get("/logout", (req, res) => {
