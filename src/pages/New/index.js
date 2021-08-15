@@ -20,14 +20,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NewTweet() {
   const classes = useStyles();
+  const data = useContext(UserContext);
 
   const url = "https://api.cloudinary.com/v1_1/dryaxqxie/image/upload";
   const preset = "chitter";
-  const [image, setImage] = useState("")
+  const [image, setImage] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const data = useContext(UserContext);
-
   const [tweet, setTweet] = useState("");
+
   let newMsgTimeoutHandle = 0;
 
   const onChange = (e) => {
@@ -38,12 +38,7 @@ export default function NewTweet() {
     clearTimeout(newMsgTimeoutHandle);
   };
 
-  const register = async () => {
-    const formData = new FormData();
-    formData.append("file", image);
-    formData.append("upload_preset", preset);
-    const res = await Axios.post(url, formData);
-    const publicId = res.data.secure_url;
+  const postTweet = async (publicId) => {
     try {
       await Axios.post(
         "http://localhost:3001/new",
@@ -60,14 +55,12 @@ export default function NewTweet() {
         if (response.data === "Tweet Created") {
           window.location.href = "/";
         } else if (response.data !== "Tweet Created") {
-          setErrorMsg(
-            "Tweet could not be created"
-          );
+          setErrorMsg("Tweet could not be created");
           clearTimeout(newMsgTimeoutHandle);
           newMsgTimeoutHandle = setTimeout(() => {
             setErrorMsg("");
             newMsgTimeoutHandle = 0;
-          }, 6500);
+          }, 10000);
         }
       });
     } catch (err) {
@@ -75,8 +68,18 @@ export default function NewTweet() {
     }
   };
 
-  const checkValidation = (e) => {
-    register()
+  const checkValidation = async (e) => {
+    if (!image) {
+      let publicId = "";
+      postTweet(publicId);
+    } else {
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("upload_preset", preset);
+      const res = await Axios.post(url, formData);
+      let publicId = res.data.secure_url;
+      postTweet(publicId);
+    }
   };
 
   return (
@@ -102,7 +105,7 @@ export default function NewTweet() {
           className="uploadBtn"
         >
           <input
-          required
+            required
             accept="image/*"
             className={classes.input}
             id="contained-button-file"
@@ -116,10 +119,10 @@ export default function NewTweet() {
             </Button>
           </label>
         </div>
-        <div   className="uploadBtn">
+        <div className="uploadBtn">
           <Button
             variant="contained"
-            style={{width: 290, backgroundColor: "lightblue" }}
+            style={{ width: 290, backgroundColor: "lightblue" }}
             onClick={checkValidation}
           >
             Submit
