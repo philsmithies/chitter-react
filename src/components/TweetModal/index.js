@@ -1,19 +1,37 @@
 import React, { useState } from "react";
-import "./index.css";
-import Axios from "axios";
-import { useContext } from "react";
+import { TextField } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import Axios from "axios";
+import { makeStyles } from "@material-ui/core/styles";
+import "./index.css";
+import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+  input: {
+    display: "none",
+  },
+}));
 
 export default function TweetModal(props) {
+  const classes = useStyles();
+  const data = useContext(UserContext);
+
   const url = "https://api.cloudinary.com/v1_1/dryaxqxie/image/upload";
   const preset = "chitter";
-  const data = useContext(UserContext);
-  const [isOpen, setIsOpen] = useState(false);
   const [image, setImage] = useState("");
-  const [previewSource, setPreviewSource] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [tweet, setTweet] = useState("");
+  const [previewSource, setPreviewSource] = useState("");
+
+  const [isOpen, setIsOpen] = useState(false);
+
   let newMsgTimeoutHandle = 0;
 
   const openModal = () => {
@@ -44,6 +62,53 @@ export default function TweetModal(props) {
     };
   };
 
+  const componentWillUnmount = () => {
+    clearTimeout(newMsgTimeoutHandle);
+  };
+
+  const postTweet = async (publicId) => {
+    try {
+      await Axios.post(
+        "http://localhost:3001/new",
+        {
+          text: tweet,
+          author: data,
+          imageUrl: publicId,
+        },
+        {
+          withCredentials: true,
+        }
+      ).then((response) => {
+        console.log(response);
+        if (response.data === "Tweet Created") {
+          window.location.href = "/";
+        } else if (response.data !== "Tweet Created") {
+          setErrorMsg("Tweet could not be created");
+          clearTimeout(newMsgTimeoutHandle);
+          newMsgTimeoutHandle = setTimeout(() => {
+            setErrorMsg("");
+            newMsgTimeoutHandle = 0;
+          }, 10000);
+        }
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const checkValidation = async (e) => {
+    if (!image) {
+      let publicId = "";
+      postTweet(publicId);
+    } else {
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("upload_preset", preset);
+      const res = await Axios.post(url, formData);
+      let publicId = res.data.secure_url;
+      postTweet(publicId);
+    }
+  };
 
   // useEffect(() => {
   //   const handleClick = (e) => {
@@ -56,43 +121,6 @@ export default function TweetModal(props) {
   //     window.addEventListener("click", handleClick);
   //   }
   // }, [isOpen]);
-
-  const newTweet = async () => {
-    // const formData = new FormData();
-    // formData.append("file", image);
-    // formData.append("upload_preset", preset);
-    // const res = await Axios.post(url, formData);
-    let imageUrl = "hello"
-    try {
-      await Axios.post(
-        "http://localhost:3001/tweets/new/",
-        {
-          text: tweet,
-          author: data,
-          imageUrl: imageUrl,
-        },
-        {
-          withCredentials: true,
-        }
-      ).then((response) => {
-        console.log(response);
-        if (response.data === "Tweet Created") {
-          window.location.href = "/login";
-        } else if (response.data !== "Tweet Created") {
-          setErrorMsg(
-            "There was a problem"
-          );
-          clearTimeout(newMsgTimeoutHandle);
-          newMsgTimeoutHandle = setTimeout(() => {
-            setErrorMsg("");
-            newMsgTimeoutHandle = 0;
-          }, 6500);
-        }
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   return (
     <div className="App">
@@ -107,35 +135,44 @@ export default function TweetModal(props) {
             </header>
             <main className="modal__main">
               <div>
-                <form>
+                {errorMsg}
+                <form autoComplete="off">
+                <div
+                    className="tweetDiv"
+                  >
                   <input
                     type="text"
-                    id="tweet"
+                    id="tweetInput"
                     name="tweet"
-                    placeholder="Whats on your mind?"
+                    placeholder="Whats happening?"
                     required
                     onChange={(e) => {
                       setTweet(e.target.value);
                     }}
                   />
-                  <button className="submitBtn" onClick={newTweet}>
-                    <p>Tweet</p>
-                  </button>
-                  {!previewSource && (
-                    <div className="addPhotoBtn">
-                      <Button variant="contained" component="label">
-                        Add a Photo
-                        <input
-                          accept="image/*"
-                          id="contained-button-file"
-                          multiple
-                          type="file"
-                          style={{ display: "none" }}
-                          onChange={onChange}
-                        />
-                      </Button>
-                    </div>
-                  )}
+
+                    <input
+                      required
+                      accept="image/*"
+                      className={classes.input}
+                      id="contained-button-file"
+                      multiple
+                      type="file"
+                      onChange={onChange}
+                    />
+                    <label htmlFor="contained-button-file">
+                    <AddAPhotoIcon className="addPhoto" /> 
+                    </label>
+                  </div>
+                  <div className="uploadBtn">
+                    <Button
+                      variant="contained"
+                      className="tweetBtnSubmit"
+                      onClick={checkValidation}
+                    >
+                      Tweet
+                    </Button>
+                  </div>
                 </form>
               </div>
             </main>

@@ -68,6 +68,21 @@
   font-size: 1em;
 }
 
+.tweetBtnSubmit{
+  height: 2.5rem;
+  width: 100%;
+  border: none;
+  background-color: lightblue;
+  transition: all 0.1s linear;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  color: white;
+  font-weight: 700;
+  font-size: 1em;
+}
+
 .button:hover {
   background-color: rgb(210, 226, 232);
   border-radius: 100px;
@@ -107,7 +122,7 @@ input:focus {
 
 .previewDiv{
   margin-left: 1.5em;
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
   width: 100px;
   height: 100px;
   border: 2px solid lightgray;
@@ -120,3 +135,20 @@ input:focus {
   object-fit: cover;
   border-radius: 15px;
 }
+
+.tweetDiv{
+  margin-bottom: 2em;
+}
+
+#tweetInput {
+  display: block;
+  width: 100%;
+  padding: 0.3em;
+}
+
+.addPhoto{
+  color: black;
+  margin-left: 0.25em;
+  margin-top: 0.5em;
+}
+

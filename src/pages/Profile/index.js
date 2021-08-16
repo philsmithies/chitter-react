@@ -58,7 +58,6 @@ export default function Profile() {
         console.log(user)
         return <EditModal/>;
       }
-    }
     return <p>no</p>;
   }
 

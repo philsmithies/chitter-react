@@ -71,7 +71,7 @@ export default function Tweet(props) {
           {props.imageUrl !== '' ? (
             <a href={props.imageUrl}>
               <Image
-                className="post_photo"
+                className="tweet_photo"
                 cloudName="chitter"
                 publicId={props.imageUrl}
               />

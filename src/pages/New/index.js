@@ -104,6 +104,7 @@ export default function NewTweet() {
           style={{ margin: 30 }}
           className="uploadBtn"
         >
+          
           <input
             required
             accept="image/*"
