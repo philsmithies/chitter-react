@@ -52,10 +52,9 @@
   color: lightblue;
 }
 
-.button,
-.submitBtn {
+#submitBtn {
   height: 2.5rem;
-  width: 100%;
+  width: 30%;
   border: none;
   background-color: lightblue;
   transition: all 0.1s linear;
@@ -66,11 +65,19 @@
   color: white;
   font-weight: 700;
   font-size: 1em;
+  transition: all 0.1s linear;
+  float: right;
+    margin-bottom: 2em;
+}
+
+#submitBtn:hover {
+  background-color: rgb(210, 226, 232);
+  cursor: pointer;
 }
 
 .tweetBtnSubmit{
   height: 2.5rem;
-  width: 100%;
+  width: 60%;
   border: none;
   background-color: lightblue;
   transition: all 0.1s linear;
@@ -81,7 +88,10 @@
   color: white;
   font-weight: 700;
   font-size: 1em;
+  transition: all 0.1s linear;
 }
+
+
 
 .button:hover {
   background-color: rgb(210, 226, 232);
@@ -101,16 +111,6 @@ input:focus {
   outline: 0;
 }
 
-.submitBtn {
-  float: right;
-  width: 30%;
-  transition: all 0.1s linear;
-}
-
-.submitBtn:hover {
-  background-color: rgb(210, 226, 232);
-  cursor: pointer;
-}
 
 .addPhotoBtn{
  margin-top: 1.5em;
@@ -137,18 +137,32 @@ input:focus {
 }
 
 .tweetDiv{
-  margin-bottom: 2em;
+  display: flex;
+  flex-direction: column;
 }
 
 #tweetInput {
-  display: block;
-  width: 100%;
   padding: 0.3em;
+  margin-left: 0.25em;
+  width: 80%;
+  border-bottom: lightgray 1px solid;
 }
 
 .addPhoto{
   color: black;
-  margin-left: 0.25em;
+  margin-left: 18%;
   margin-top: 0.5em;
+  transition: all 0.1s linear;
+}
+
+.addPhoto:hover{
+  color: lightskyblue;
+  cursor: pointer;
+}
+
+.inputPhoto {
+  display: flex;
+  justify-content: space-between;
+  justify-content: center;
 }
 

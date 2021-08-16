@@ -6,7 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import "./index.css";
 import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
-import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
+import { Image } from "cloudinary-react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -137,20 +138,33 @@ export default function TweetModal(props) {
               <div>
                 {errorMsg}
                 <form autoComplete="off">
-                <div
-                    className="tweetDiv"
-                  >
-                  <input
-                    type="text"
-                    id="tweetInput"
-                    name="tweet"
-                    placeholder="Whats happening?"
-                    required
-                    onChange={(e) => {
-                      setTweet(e.target.value);
-                    }}
-                  />
-
+                  <div className="tweetDiv">
+                    <div className="inputPhoto">
+                    <div className="profile_photo">
+                      {props.publicId ? (
+                        <Image
+                          className="profile_photo"
+                          cloudName="chitter"
+                          publicId={props.publicId}
+                        />
+                      ) : (
+                        <img
+                          src={process.env.PUBLIC_URL + "/img/bluetit.jpg"}
+                          alt="new user"
+                        ></img>
+                      )}
+                    </div>
+                    <input
+                      type="text"
+                      id="tweetInput"
+                      name="tweet"
+                      placeholder="Whats happening?"
+                      required
+                      onChange={(e) => {
+                        setTweet(e.target.value);
+                      }}
+                    />
+</div>
                     <input
                       required
                       accept="image/*"
@@ -161,12 +175,12 @@ export default function TweetModal(props) {
                       onChange={onChange}
                     />
                     <label htmlFor="contained-button-file">
-                    <AddAPhotoIcon className="addPhoto" /> 
+                      <AddAPhotoIcon className="addPhoto" />
                     </label>
                   </div>
                   <div className="uploadBtn">
                     <Button
-                      variant="contained"
+                       id="submitBtn"
                       className="tweetBtnSubmit"
                       onClick={checkValidation}
                     >
