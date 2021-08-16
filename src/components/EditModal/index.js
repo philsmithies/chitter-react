@@ -1,86 +1,69 @@
 import React, { useState } from "react";
-import "./index.css";
-import Axios from "axios";
-import { useContext } from "react";
+import { TextField } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import Axios from "axios";
+import { makeStyles } from "@material-ui/core/styles";
+import "./index.css";
+import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+  input: {
+    display: "none",
+  },
+}));
+
 export default function EditModal(props) {
+  const classes = useStyles();
+  const data = useContext(UserContext);
+
   const url = "https://api.cloudinary.com/v1_1/dryaxqxie/image/upload";
   const preset = "chitter";
-  const data = useContext(UserContext);
-  const [isOpen, setIsOpen] = useState(false);
   const [image, setImage] = useState("");
-  const [previewSource, setPreviewSource] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const [fullName, setFullName] = useState("")
-  let newMsgTimeoutHandle = 0;
-
+  const [tweet, setTweet] = useState("");
   const [bio, setBio] = useState("");
+  const [fullName, setFullName] = useState("");
 
-  const openModal = () => {
-    if (props.link) {
-      window.location.href = "/signup";
-    } else {
-      setIsOpen(true);
-    }
-  };
-
-  const closeModal = () => {
-    console.log("closed");
-    setIsOpen(false);
-  };
+  let newMsgTimeoutHandle = 0;
 
   const onChange = (e) => {
     setImage(e.target.files[0]);
-    const file = e.target.files[0];
-    previewFile(file);
+    console.log(image)
   };
 
-  const previewFile = (file) => {
-    const reader = new FileReader();
-    // reads the file as url to create preview
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setPreviewSource(reader.result);
-    };
+  const componentWillUnmount = () => {
+    clearTimeout(newMsgTimeoutHandle);
   };
 
-  // useEffect(() => {
-  //   const handleClick = (e) => {
-  //     if (e.target.className !== "modal" && e.target.className !== "button") {
-  //       closeModal()
-  //     }
-  //   };
-  //   if (isOpen) {
-  //     console.log('open')
-  //     window.addEventListener("click", handleClick);
-  //   }
-  // }, [isOpen]);å
-
-  const editBio = async (publicId) => {
+  const updateProfile = async (photoId) => {
     try {
       await Axios.post(
         "http://localhost:3001/users/" + props.username + "/update/",
         {
           bio: bio,
           fullName: fullName,
-          bioPhotoId: publicId
+          bioPhotoId: photoId,
         },
         {
           withCredentials: true,
         }
       ).then((response) => {
         console.log(response);
-        if (response.data) {
+        if (response.data === "Tweet Created") {
           window.location.href = "/";
         } else if (response.data !== "Tweet Created") {
-          setErrorMsg("There was a problem");
+          setErrorMsg("Tweet could not be created");
           clearTimeout(newMsgTimeoutHandle);
           newMsgTimeoutHandle = setTimeout(() => {
             setErrorMsg("");
             newMsgTimeoutHandle = 0;
-          }, 6500);
+          }, 10000);
         }
       });
     } catch (err) {
@@ -90,62 +73,56 @@ export default function EditModal(props) {
 
   const checkValidation = async (e) => {
     if (!image) {
-      let publicId = "";
-      editBio(publicId);
+      let photoId = "";
+      updateProfile(photoId);
     } else {
       const formData = new FormData();
       formData.append("file", image);
       formData.append("upload_preset", preset);
       const res = await Axios.post(url, formData);
-      let publicId = res.data.secure_url;
-      editBio(publicId);
+      let photoId = res.data.secure_url;
+      updateProfile(photoId);
     }
   };
 
   return (
-    <div className="App">
-      {isOpen && (
-        <>
-          <div className="overlay"></div>
-          <div className="modal">
-            <header className="modal__header">
-              <div onClick={closeModal} className="close-button">
-                &times;
-              </div>
-            </header>
-            <main className="modal__main">
-              <div>
-                <form>
-                  <input
-                    type="text"
-                    id="tweet"
-                    name="tweet"
-                    placeholder="Set Your Bio"
-                    required
-                    onChange={(e) => {
-                      setBio(e.target.value);
-                    }}
-                  />
-                  <input
-                    type="text"
-                    id="tweet"
-                    name="tweet"
-                    placeholder="Set Your Name"
-                    required
-                    onChange={(e) => {
-                      setFullName(e.target.value);
-                    }}
-                  />
-                  <button className="submitBtn" onClick={checkValidation}>
-                    <p>Edit</p>
-                  </button>
-                  <div
+    <div>
+      {errorMsg}
+      <form autoComplete="off">
+        <TextField
+          id="standard-full-width"
+          label="fullname"
+          placeholder="fullname"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={(e) => {
+            setFullName(e.target.value);
+          }}
+        />
+        <TextField
+          id="standard-full-width"
+          label="bio"
+          placeholder="bio"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={(e) => {
+            setBio(e.target.value);
+          }}
+        />
+        <div
+          className={classes.root}
           style={{ margin: 30 }}
           className="uploadBtn"
         >
           <input
-            required
             accept="image/*"
+            className={classes.input}
             id="contained-button-file"
             multiple
             type="file"
@@ -157,25 +134,16 @@ export default function EditModal(props) {
             </Button>
           </label>
         </div>
-                </form>
-              </div>
-            </main>
-            {previewSource && (
-              <div className="previewDiv">
-                <img
-                  src={previewSource}
-                  alt="chosen"
-                  className="preview-image"
-                />
-              </div>
-            )}
-          </div>
-        </>
-      )}
-
-      <button className="button" onClick={openModal}>
-        Edit Bio
-      </button>
+        <div className="uploadBtn">
+          <Button
+            variant="contained"
+            style={{ width: 290, backgroundColor: "lightblue" }}
+            onClick={checkValidation}
+          >
+            Submit
+          </Button>
+        </div>
+      </form>
     </div>
   );
 }
