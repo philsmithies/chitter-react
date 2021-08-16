@@ -19,7 +19,13 @@ let UserController = {
     const reqUser = await UserModel.findOne({ username: req.params.username });
     let foundUser = await TweetModel.find({author: reqUser._id}).populate("author").sort({ createdAt: 'desc' })
     res.json(foundUser)
-  }
+  },
+  update: async (req, res) => {
+    let found = await UserModel.findOneAndUpdate({username:  req.params.username}, 
+      {bio: req.body.bio, bioPhotoId: req.body.bioPhotoId, fullName: req.body.fullName}
+      )
+    res.send("Bio Updated")
+  },
 }
 
 

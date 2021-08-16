@@ -85,3 +85,8 @@
 .tweetsSpan {
   color: gray;
 }
+
+.bannerimg{
+  border-left: rgb(235, 235, 235) solid 0.1px;
+  border-right: rgb(235, 235, 235) solid 0.1px;
+}

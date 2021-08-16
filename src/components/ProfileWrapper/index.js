@@ -1,8 +1,14 @@
 import "./index.css";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Image } from "cloudinary-react";
+import { format } from "date-fns";
 
 export default function ProfileWrapper(props) {
+
+  const formatDate = (date) => {
+    return format(new Date(date), "MMM yyyy");
+  };
+
   return (
     <div className="profile_wrapper">
       <div className="profile_functions">
@@ -21,10 +27,15 @@ export default function ProfileWrapper(props) {
         </div>
       </div>
       <div className="bannerimg">
+      {props.bioPhotoId ? (
+      <Image
+                cloudName="chitter"
+                publicId={props.bioPhotoId}
+              /> ) : 
         <img
           src={process.env.PUBLIC_URL + "/img/banner.jpeg"}
           alt="banner"
-        ></img>
+        ></img> }
       </div>
       <div className="bio_wrapper">
         <div className="follow_wrapper">
@@ -50,9 +61,17 @@ export default function ProfileWrapper(props) {
             <span>@{props.username}</span>
           </h3>
           <p>
-            {props.bio || "New chipper"}
+            {props.bio}
             <br />
-            Joined August 2021
+            Joined {props.createdAt ? formatDate(props.createdAt) : 'August 2021'}
+                  {props.bioPhotoId !== '' ? (
+                    <div>
+              <Image
+                cloudName="chitter"
+                bioPhotoId={props.bioPhotoId}
+              />
+              </div>
+          ) : "" }
           </p>
         </div>
       </div>

@@ -2,7 +2,6 @@ let LikeModal = require('../models/like.js')
 
 let LikeController = {
   find: async (req, res) => {
-    // sort this id
     let found = await LikeModal.find({id:  req.params.id})
     res.json(found)
   },

@@ -2,7 +2,6 @@ let TweetModel = require('../models/tweet.js')
 
 let TweetController = {
   find: async (req, res) => {
-    // sort this id
     let found = await TweetModel.find({_id:  req.params._id}).populate('author');
     res.json(found)
   },
@@ -18,5 +17,7 @@ let TweetController = {
     res.json(savedTweet)
   }
 }
+
+
 
 module.exports = TweetController

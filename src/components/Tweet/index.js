@@ -30,7 +30,7 @@ export default function Tweet(props) {
           }
         )
         .then((response) => {
-          console.log(response);
+          // console.log(response);
         });
     } catch (err) {
       console.error(err);
@@ -67,6 +67,17 @@ export default function Tweet(props) {
           </div>
 
           <div className="bodyText">{props.text}</div>
+          <div>
+          {props.imageUrl !== '' ? (
+            <a href={props.imageUrl}>
+              <Image
+                className="post_photo"
+                cloudName="chitter"
+                publicId={props.imageUrl}
+              />
+            </a>
+          ) : "" }
+          </div>
           <div className="tweet_functions">
             <ChatBubbleOutlineIcon className="chatBubble" />
             <RepeatIcon className="retweet" />

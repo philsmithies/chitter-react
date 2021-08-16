@@ -12,6 +12,9 @@ export default function TweetModal(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [image, setImage] = useState("");
   const [previewSource, setPreviewSource] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [tweet, setTweet] = useState("");
+  let newMsgTimeoutHandle = 0;
 
   const openModal = () => {
     if (props.link) {
@@ -41,6 +44,7 @@ export default function TweetModal(props) {
     };
   };
 
+
   // useEffect(() => {
   //   const handleClick = (e) => {
   //     if (e.target.className !== "modal" && e.target.className !== "button") {
@@ -53,29 +57,36 @@ export default function TweetModal(props) {
   //   }
   // }, [isOpen]);
 
-  const [tweet, setTweet] = useState("");
-
   const newTweet = async () => {
-    const formData = new FormData();
-    formData.append("file", image);
-    formData.append("upload_preset", preset);
+    // const formData = new FormData();
+    // formData.append("file", image);
+    // formData.append("upload_preset", preset);
+    // const res = await Axios.post(url, formData);
+    let imageUrl = "hello"
     try {
-      const res = await Axios.post(url, formData);
-      const publicId = res.data.secure_url;
       await Axios.post(
-        "http://localhost:3001/tweets/" + data.username + "/create/",
+        "http://localhost:3001/tweets/new/",
         {
           text: tweet,
           author: data,
-          publicId: publicId,
+          imageUrl: imageUrl,
         },
         {
           withCredentials: true,
         }
       ).then((response) => {
         console.log(response);
-        if (response.data) {
-          window.location.href = "/";
+        if (response.data === "Tweet Created") {
+          window.location.href = "/login";
+        } else if (response.data !== "Tweet Created") {
+          setErrorMsg(
+            "There was a problem"
+          );
+          clearTimeout(newMsgTimeoutHandle);
+          newMsgTimeoutHandle = setTimeout(() => {
+            setErrorMsg("");
+            newMsgTimeoutHandle = 0;
+          }, 6500);
         }
       });
     } catch (err) {
@@ -96,7 +107,7 @@ export default function TweetModal(props) {
             </header>
             <main className="modal__main">
               <div>
-                <form onSubmit={newTweet}>
+                <form>
                   <input
                     type="text"
                     id="tweet"
@@ -107,7 +118,7 @@ export default function TweetModal(props) {
                       setTweet(e.target.value);
                     }}
                   />
-                  <button className="submitBtn">
+                  <button className="submitBtn" onClick={newTweet}>
                     <p>Tweet</p>
                   </button>
                   {!previewSource && (

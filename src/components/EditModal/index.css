@@ -1,3 +1,14 @@
+.updateBioWrapper{
+  border-radius: 15px;
+  padding: 0 0.75rem 0.75rem;
+  margin: 0 1rem;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2em;
+}
+
 .TweetModal {
   width: 60%;
   padding: 50px;
@@ -55,7 +66,7 @@
 .button,
 .submitBtn {
   height: 2.5rem;
-  width: 100%;
+  width: 80%;
   border: none;
   background-color: lightblue;
   transition: all 0.1s linear;
@@ -66,6 +77,7 @@
   color: white;
   font-weight: 700;
   font-size: 1em;
+
 }
 
 .button:hover {

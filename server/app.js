@@ -65,6 +65,7 @@ app.get("/users/", UserControls.all);
 app.get("/users/:username/tweets", UserControls.getAllTweets);
 app.get("/users/create", UserControls.create);
 app.get("/users/:username", UserControls.find);
+app.post("/users/:username/update", UserControls.update);
 
 app.get("/tweets/", TweetControls.all);
 app.get("/tweets/find/:id", TweetControls.find);

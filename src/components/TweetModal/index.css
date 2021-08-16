@@ -113,3 +113,10 @@ input:focus {
   border: 2px solid lightgray;
   overflow: hidden;
 }
+
+.post_photo{
+  height: 280px;
+  width: 520px;
+  object-fit: cover;
+  border-radius: 15px;
+}

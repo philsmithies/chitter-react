@@ -42,6 +42,7 @@ export default function Feed() {
             key={index}
             fullName={value.author.fullName}
             publicId={value.author ? value.author.publicId : ""}
+            imageUrl={value.imageUrl}
             text={value.text}
             username={value.author ? value.author.username : ""}
             createdAt={value.createdAt}

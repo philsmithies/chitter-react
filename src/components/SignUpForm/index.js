@@ -92,6 +92,40 @@ export default function SignUpForm() {
     }
   };
 
+  const registerNoPhoto = async () => {
+    try {
+      await Axios.post(
+        "http://localhost:3001/signup",
+        {
+          username: usernameReg,
+          fullName: fullNameReg,
+          password: passwordReg,
+          email: emailReg,
+          publicId: '',
+        },
+        {
+          withCredentials: true,
+        }
+      ).then((response) => {
+        console.log(response);
+        if (response.data === "User Created") {
+          window.location.href = "/login";
+        } else if (response.data !== "User Created") {
+          setErrorMsg(
+            "User already exists, please sign in or create new account"
+          );
+          clearTimeout(newMsgTimeoutHandle);
+          newMsgTimeoutHandle = setTimeout(() => {
+            setErrorMsg("");
+            newMsgTimeoutHandle = 0;
+          }, 6500);
+        }
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const checkValidation = (e) => {
     if (!emailRegex.test(emailReg)) {
       setEmailError(true);
@@ -117,8 +151,10 @@ export default function SignUpForm() {
         setUserMsg("");
         newMsgTimeoutHandle = 0;
       }, 6500);
-    } else {
+    } else if (image) {
       register();
+    } else {
+      registerNoPhoto()
     }
   };
 
@@ -206,6 +242,7 @@ export default function SignUpForm() {
           className="uploadBtn"
         >
           <input
+          required
             accept="image/*"
             className={classes.input}
             id="contained-button-file"

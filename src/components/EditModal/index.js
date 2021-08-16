@@ -29,12 +29,26 @@ export default function EditModal(props) {
   const [tweet, setTweet] = useState("");
   const [bio, setBio] = useState("");
   const [fullName, setFullName] = useState("");
-
   let newMsgTimeoutHandle = 0;
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    if (props.link) {
+      window.location.href = "/signup";
+    } else {
+      setIsOpen(true);
+    }
+  };
+
+  const closeModal = () => {
+    console.log("closed");
+    setIsOpen(false);
+  };
 
   const onChange = (e) => {
     setImage(e.target.files[0]);
-    console.log(image)
+    console.log(image);
   };
 
   const componentWillUnmount = () => {
@@ -55,10 +69,10 @@ export default function EditModal(props) {
         }
       ).then((response) => {
         console.log(response);
-        if (response.data === "Tweet Created") {
-          window.location.href = "/";
-        } else if (response.data !== "Tweet Created") {
-          setErrorMsg("Tweet could not be created");
+        if (response.data === "Bio Updated") {
+          window.location.href =  "http://localhost:3000/profile/" + props.username;
+        } else if (response.data !== "Bio Updated") {
+          setErrorMsg("Bio could not be updated");
           clearTimeout(newMsgTimeoutHandle);
           newMsgTimeoutHandle = setTimeout(() => {
             setErrorMsg("");
@@ -86,64 +100,95 @@ export default function EditModal(props) {
   };
 
   return (
-    <div>
-      {errorMsg}
-      <form autoComplete="off">
-        <TextField
-          id="standard-full-width"
-          label="fullname"
-          placeholder="fullname"
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={(e) => {
-            setFullName(e.target.value);
-          }}
-        />
-        <TextField
-          id="standard-full-width"
-          label="bio"
-          placeholder="bio"
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={(e) => {
-            setBio(e.target.value);
-          }}
-        />
-        <div
-          className={classes.root}
-          style={{ margin: 30 }}
-          className="uploadBtn"
-        >
-          <input
-            accept="image/*"
-            className={classes.input}
-            id="contained-button-file"
-            multiple
-            type="file"
-            onChange={onChange}
-          />
-          <label htmlFor="contained-button-file">
-            <Button variant="contained" component="span">
-              Upload Profile Picture
-            </Button>
-          </label>
-        </div>
-        <div className="uploadBtn">
-          <Button
-            variant="contained"
-            style={{ width: 290, backgroundColor: "lightblue" }}
-            onClick={checkValidation}
-          >
-            Submit
-          </Button>
-        </div>
-      </form>
+    <div className="updateBioWrapper">
+      {isOpen && (
+        <>
+          <div className="overlay"></div>
+          <div className="modal">
+            <header className="modal__header">
+              <div onClick={closeModal} className="close-button">
+                &times;
+              </div>
+            </header>
+            <main className="modal__main">
+              <div>
+                <div>
+                  {errorMsg}
+                  <form autoComplete="off">
+                    <TextField
+                      id="standard-full-width"
+                      label="Name"
+                      placeholder={props.fullName}
+                      fullWidth
+                      margin="normal"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      onChange={(e) => {
+                        setFullName(e.target.value);
+                      }}
+                    />
+                    <TextField
+                      id="standard-full-width"
+                      label="Your Bio"
+                      placeholder={props.bio}
+                      fullWidth
+                      margin="normal"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      onChange={(e) => {
+                        setBio(e.target.value);
+                      }}
+                    />
+                    <div
+                      className={classes.root}
+                      style={{ margin: 30 }}
+                      className="uploadBtn"
+                    >
+                      <input
+                        accept="image/*"
+                        className={classes.input}
+                        id="contained-button-file"
+                        multiple
+                        type="file"
+                        onChange={onChange}
+                      />
+                      <label htmlFor="contained-button-file">
+                        <Button variant="contained" component="span">
+                          Update Bio Photo
+                        </Button>
+                      </label>
+                    </div>
+                    <div className="uploadBtn">
+                      <Button
+                        variant="contained"
+                        style={{ width: 290, backgroundColor: "lightblue" }}
+                        onClick={checkValidation}
+                      >
+                        Submit
+                      </Button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </main>
+            {/* {previewSource && (
+              <div className="previewDiv">
+                <img
+                  src={previewSource}
+                  alt="chosen"
+                  className="preview-image"
+                />
+              </div>
+            )} */}
+          </div>
+        </>
+      )}
+
+      <button className="button" onClick={openModal}>
+        Edit Bio
+      </button>
     </div>
   );
 }

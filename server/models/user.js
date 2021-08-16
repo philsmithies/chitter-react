@@ -21,7 +21,8 @@ const userSchema = new Schema({
     type: String,
   },
   publicId: String,
-});
+  bioPhotoId: String,
+}, { timestamps: true });
 
 // user.plugin(uniqueValidator, { message: 'Error, expected {VALUE} to be unique'})
 

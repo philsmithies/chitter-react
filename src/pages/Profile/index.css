@@ -2,13 +2,14 @@
   width: 95vw;
   display: grid;
   grid-template-columns: 1fr 600px 1fr;
+  margin-bottom: 8em;
 }
 
 .profile_wrapper {
   max-width: 600px;
   grid-column: 2 / 3;
   grid-row: 1 / 2;
-  margin-top: 1em;  
+  /* margin-top: 1em;   */
 }
 
 .bannerimg {
