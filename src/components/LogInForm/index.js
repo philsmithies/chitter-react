@@ -21,6 +21,7 @@ export default function LogInForm() {
     }).then((res) => {
       if (res.data.auth) {
         localStorage.setItem("token", res.data.token)
+        localStorage.setItem('user', res.data)
         window.location.href = "/";
       } else if (res.data === "No User Exists") {
         setNoUserMsg("User Not Found");

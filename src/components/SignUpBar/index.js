@@ -1,11 +1,13 @@
 import SignUpBarBtn from "../Buttons/SignUpBarBtn";
 import ProfileBtn from "../Buttons/ProfileBtn";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../Contexts/UserContext";
 import "./index.css";
 
 export default function SignUpBar() {
   const data = useContext(UserContext);
+  const [user, setUser] = useState('');
+
   return (
     <div className="SignUpBarWrapper">
       {data && data.username ? (
