@@ -50,17 +50,24 @@ export default function Profile() {
     }
   };
 
+  const getLoggedUser = async () => {
+    try {
+      axios({
+        method: "GET",
+        withCredentials: true,
+        url: "http://localhost:3001/user",
+      }).then((res) => {
+        setLoggedUser(res.data);
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     getProfileData(userId);
     getTweets();
-
-    axios({
-      method: "GET",
-      withCredentials: true,
-      url: "http://localhost:3001/user",
-    }).then((res) => {
-      setLoggedUser(res.data);
-    });
+    getLoggedUser()
   }, []);
 
   const EditButton = () => {
