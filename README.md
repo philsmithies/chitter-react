@@ -86,9 +86,9 @@ I used the following technologies to build Chitter.
   - The technology used to handle the backend including authentication and other database requests. 
 - [Jest](https://jestjs.io)
   - Used for testing.
-- [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5) 
+- [HTML](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5) 
   - Used within the JSX components in React.
-- [CSS3](https://developer.mozilla.org/en-US/docs/Archive/CSS3) 
+- [CSS](https://developer.mozilla.org/en-US/docs/Archive/CSS3) 
   - Used for the overall look of the site and its elements.
 - [Flat Icon](http://flaticon.com/)
   - Used for the icons and SVG files.
