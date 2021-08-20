@@ -34,9 +34,9 @@ export default function NewTweet() {
     setImage(e.target.files[0]);
   };
 
-  const componentWillUnmount = () => {
-    clearTimeout(newMsgTimeoutHandle);
-  };
+  // const componentWillUnmount = () => {
+  //   clearTimeout(newMsgTimeoutHandle);
+  // };
 
   const postTweet = async (publicId) => {
     try {

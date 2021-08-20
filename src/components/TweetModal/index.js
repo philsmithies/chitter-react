@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextField } from "@material-ui/core";
+// import { TextField } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
@@ -63,9 +63,9 @@ export default function TweetModal(props) {
     };
   };
 
-  const componentWillUnmount = () => {
-    clearTimeout(newMsgTimeoutHandle);
-  };
+  // const componentWillUnmount = () => {
+  //   clearTimeout(newMsgTimeoutHandle);
+  // };
 
   const postTweet = async (publicId) => {
     try {
@@ -203,7 +203,7 @@ export default function TweetModal(props) {
         </>
       )}
 
-      <button className="button" onClick={openModal}>
+      <button className="tweetSideButton" onClick={openModal}>
         Tweet
       </button>
     </div>

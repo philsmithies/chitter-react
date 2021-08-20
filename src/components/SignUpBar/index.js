@@ -8,9 +8,9 @@ export default function SignUpBar() {
   const data = useContext(UserContext);
   return (
     <div className="SignUpBarWrapper">
-      {data ? (
+      {data && data.username ? (
         <div>
-          <h2 className="welcome_title">Hello {data.username.charAt(0).toUpperCase() + data.username.slice(1)}</h2>
+          <h2 className="welcome_title">Hello {data.username}</h2>
           <ProfileBtn username={data.username} />
           <SignUpBarBtn text={"Log Out"} link={'/logout'}/>
         </div>

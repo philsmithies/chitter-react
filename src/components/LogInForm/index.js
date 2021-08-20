@@ -19,11 +19,12 @@ export default function LogInForm() {
       withCredentials: true,
       url: "http://localhost:3001/login",
     }).then((res) => {
-      if (res.data === "Successfully Authenticated") {
+      if (res.data.auth) {
+        localStorage.setItem("token", res.data.token)
         window.location.href = "/";
       } else if (res.data === "No User Exists") {
         setNoUserMsg("User Not Found");
-        setNoUserError(true);
+        setNoUserError(true); 
       }
     });
   };

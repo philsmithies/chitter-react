@@ -63,7 +63,7 @@ export default function ProfileWrapper(props) {
           <p>
             {props.bio}
             <br />
-            Joined {props.createdAt ? formatDate(props.createdAt) : 'August 2021'}
+            Joined {props.createdAt ? formatDate(props.createdAt) : 'August 2021'}          </p>
                   {props.bioPhotoId !== '' ? (
                     <div>
               <Image
@@ -72,7 +72,6 @@ export default function ProfileWrapper(props) {
               />
               </div>
           ) : "" }
-          </p>
         </div>
       </div>
     </div>
