@@ -8,8 +8,6 @@ export default function LogInForm() {
   const [loginPassword, setLoginPassword] = useState("");
   const [noUserMsg, setNoUserMsg] = useState('');
   const [noUserError, setNoUserError] = useState(false);
-  const [user, setUser] = useState()
-  const [loginStatus, setLoginStatus] = (useState(false))
 
   const login = () => {
     Axios({
@@ -22,15 +20,11 @@ export default function LogInForm() {
       url: "http://localhost:3001/login",
     }).then((res) => {
       if (res.data.auth) {
-        setUser(res.data)
-        console.log(res.data)
-        setLoginStatus(true)
         localStorage.setItem("token", res.data.token)
-        // window.location.href = "/";
+        window.location.href = "/";
       } else if (res.data === "No User Exists") {
         setNoUserMsg("User Not Found");
-        setNoUserError(true);
-        setLoginStatus(false)
+        setNoUserError(true); 
       }
     });
   };
@@ -73,9 +67,6 @@ export default function LogInForm() {
       >
         Submit
       </Button>
-      {loginStatus && (
-        <h1>Logged in</h1>
-      )}
     </form>
   );
 }

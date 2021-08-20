@@ -6,10 +6,9 @@ import "./index.css";
 
 export default function SignUpBar() {
   const data = useContext(UserContext);
-  console.log(data)
   return (
     <div className="SignUpBarWrapper">
-      {data ? (
+      {data && data.username ? (
         <div>
           <h2 className="welcome_title">Hello {data.username}</h2>
           <ProfileBtn username={data.username} />

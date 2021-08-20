@@ -13,8 +13,7 @@ const UserContextProvider = (props) => {
     Axios({
       method: "GET",
       withCredentials: true,
-      headers: {"x-access-token": localStorage.getItem("token")},
-      url: "http://localhost:3001/isUserAuth",
+      url: "http://localhost:3001/user",
     }).then((res) => {
       setData(res.data);
     });

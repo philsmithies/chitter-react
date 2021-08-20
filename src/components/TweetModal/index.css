@@ -70,12 +70,9 @@
     margin-bottom: 2em;
 }
 
-#submitBtn:hover {
-  background-color: rgb(210, 226, 232);
-  cursor: pointer;
-}
 
-.tweetBtnSubmit{
+
+.tweetBtnSubmit, .tweetSideButton{
   height: 2.5rem;
   width: 60%;
   border: none;
@@ -89,6 +86,15 @@
   font-weight: 700;
   font-size: 1em;
   transition: all 0.1s linear;
+}
+
+#submitBtn:hover, .tweetSideButton:hover {
+  background-color: rgb(210, 226, 232);
+  cursor: pointer;
+}
+
+.tweetSideButton{
+  width: 80%;
 }
 
 

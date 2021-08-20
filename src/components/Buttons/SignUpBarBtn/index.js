@@ -7,8 +7,7 @@ export default function SignUpBarBtn(props) {
     Axios.get("http://localhost:3001/logout", {
       withCredentials: true,
     }).then((res) => {
-      console.log(res.data);
-      if (res.data === "success") {
+      if (res.data === "Logged Out") {
         return (window.location.href = "/");
       }
     });

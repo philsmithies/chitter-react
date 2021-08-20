@@ -49,9 +49,9 @@ export default function SignUpForm() {
     setImage(e.target.files[0]);
   };
 
-  const componentWillUnmount = () => {
-    clearTimeout(newMsgTimeoutHandle);
-  };
+  // const componentWillUnmount = () => {
+  //   clearTimeout(newMsgTimeoutHandle);
+  // };
 
   const register = async () => {
     const formData = new FormData();
@@ -239,7 +239,6 @@ export default function SignUpForm() {
         <div
           className={classes.root}
           style={{ margin: 30 }}
-          className="uploadBtn"
         >
           <input
           required
@@ -256,7 +255,7 @@ export default function SignUpForm() {
             </Button>
           </label>
         </div>
-        <div   className="uploadBtn">
+        <div className="uploadBtn">
           <Button
             variant="contained"
             style={{width: 290, backgroundColor: "lightblue" }}

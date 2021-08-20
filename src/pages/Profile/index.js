@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { UserContext } from "../../Contexts/UserContext";
 import axios from "axios";
 import "./index.css";
 import { useParams } from "react-router-dom";
@@ -9,9 +10,10 @@ import SignUpBar from "../../components/SignUpBar";
 import ProfileWrapper from "../../components/ProfileWrapper";
 
 export default function Profile() {
+  const [loggedUser, setLoggedUser] = useState('')
+  const [user, setUser] = useState('')
   const [data, setData] = useState();
   const [tweets, setTweets] = useState();
-  const [user, setUser] = useState();
   const { userId } = useParams();
 
   const getProfileData = function (userId) {
@@ -51,14 +53,24 @@ export default function Profile() {
   useEffect(() => {
     getProfileData(userId);
     getTweets();
+
+    axios({
+      method: "GET",
+      withCredentials: true,
+      url: "http://localhost:3001/user",
+    }).then((res) => {
+      setLoggedUser(res.data);
+    });
   }, []);
 
   const EditButton = () => {
-      if (user) {
-        console.log(user)
-        return <EditModal/>;
+      if (userId) {
+        if (loggedUser.username === userId) {
+          return <EditModal username={loggedUser.username} />;
+        } else {
+          return '';
+        }
       }
-    return <p>no</p>;
   }
 
   return (
@@ -76,7 +88,6 @@ export default function Profile() {
             createdAt={data.createdAt}
           />
           <div className="profile_content">
-          <editButton/>
             {tweets
               ? tweets.map((value, index) => (
                   <Tweet
@@ -98,7 +109,7 @@ export default function Profile() {
       </div>
       <div className="signupbar">
         <SignUpBar />
-        {/* <EditButton/> */}
+        <EditButton/>
       </div>
     </div>
   );

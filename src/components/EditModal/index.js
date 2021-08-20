@@ -51,9 +51,6 @@ export default function EditModal(props) {
     console.log(image);
   };
 
-  const componentWillUnmount = () => {
-    clearTimeout(newMsgTimeoutHandle);
-  };
 
   const updateProfile = async (photoId) => {
     try {
