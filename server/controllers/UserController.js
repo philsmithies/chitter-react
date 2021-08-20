@@ -1,4 +1,4 @@
-let UserModel = require('../models/user.js')
+let UserModel = require('../models/User.js')
 let TweetModel = require('../models/tweet.js')
 
 let UserController = {
