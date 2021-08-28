@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 
 export default function SignUpBarBtn(props) {
+
   const logOut = () => {
     Axios.get("http://localhost:3001/logout", {
       withCredentials: true,
@@ -16,7 +17,7 @@ export default function SignUpBarBtn(props) {
   return (
     <div>
       {props.text === "Log Out" ? (
-        <Link to={props.link} className="SignUpLink" onClick={logOut}>
+        <Link className="SignUpLink" onClick={logOut}>
           <div className="logInBtn">
             <p>{props.text}</p>
           </div>
