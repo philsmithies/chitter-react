@@ -17,13 +17,13 @@ export default function SignUpBarBtn(props) {
   return (
     <div>
       {props.text === "Log Out" ? (
-        <Link className="SignUpLink" onClick={logOut}>
+        <div className="SignUpLink" onClick={logOut}>
           <div className="logInBtn">
             <p>{props.text}</p>
           </div>
-        </Link>
+        </div>
       ) : (
-        <Link to={props.link} className="SignUpLink">
+        <Link to={props.link || '/'} className="SignUpLink">
           <div className="logInBtn">
             <p>{props.text}</p>
           </div>

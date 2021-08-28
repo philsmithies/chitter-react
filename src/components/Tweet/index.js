@@ -57,7 +57,7 @@ export default function Tweet(props) {
         </div>
         <div className="tweet_content">
           <div className="username">
-            <Link to={`/profile/${props.username}`} className="profileLinks">
+            <Link to={`/profile/${props.username}` || '/'} className="profileLinks">
               <strong>{props.fullName}</strong>
             </Link>
             <small className="usernameText">
@@ -73,7 +73,7 @@ export default function Tweet(props) {
           <div className="bodyText">{props.text}</div>
           <div>
             {props.imageUrl !== "" ? (
-              <Link to={props.imageUrl}>
+              <Link to={props.imageUrl || '/'}>
                 <Image
                   className="tweet_photo"
                   cloudName="chitter"

@@ -29,7 +29,6 @@ export default function EditModal(props) {
   const preset = "chitter";
   const [image, setImage] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const [tweet, setTweet] = useState("");
   const [bio, setBio] = useState("");
   const [fullName, setFullName] = useState("");
   let newMsgTimeoutHandle = 0;
@@ -143,7 +142,7 @@ export default function EditModal(props) {
                       }}
                     />
                     <div
-                      className={classes.root}
+                      // className={classes.root}
                       style={{ margin: 30 }}
                       className="uploadBtn"
                     >

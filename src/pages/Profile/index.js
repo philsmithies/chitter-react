@@ -10,7 +10,6 @@ import SignUpBar from "../../components/SignUpBar";
 import ProfileWrapper from "../../components/ProfileWrapper";
 
 export default function Profile() {
-  const [loggedUser, setLoggedUser] = useState('')
   const { user } = useContext(UserContext);
   const [data, setData] = useState();
   const [tweets, setTweets] = useState();

@@ -100,7 +100,6 @@ export default function NewTweet() {
           }}
         />
         <div
-          className={classes.root}
           style={{ margin: 30 }}
           className="uploadBtn"
         >
