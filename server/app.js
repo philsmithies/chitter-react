@@ -26,8 +26,8 @@ mongoose
     useUnifiedTopology: true,
     useCreateIndex: true,
   })
-  .then((result) => console.log(`Connected to Port ${PORT}`))
-  .then((result) => app.listen(`${PORT}`))
+  .then((result) => console.log(`Connected to Port ${process.env.PORT || PORT}`))
+  .then((result) => app.listen(`${process.env.PORT || PORT}`))
   .catch((err) => console.log(err));
 
 //-----------------------------------------  MIDDLEWARE--------------------------------------------------- //
