@@ -11,7 +11,7 @@ import ProfileWrapper from "../../components/ProfileWrapper";
 
 export default function Profile() {
   const [loggedUser, setLoggedUser] = useState('')
-  const [user, setUser] = useState('')
+  const { user } = useContext(UserContext);
   const [data, setData] = useState();
   const [tweets, setTweets] = useState();
   const { userId } = useParams();
@@ -72,7 +72,7 @@ export default function Profile() {
 
   const EditButton = () => {
       if (userId) {
-        if (loggedUser.username === userId) {
+        if (user === userId) {
           return <EditModal username={loggedUser.username} />;
         } else {
           return '';

@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import "./index.css";
 import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,8 +20,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EditModal(props) {
+  const { user } = useContext(UserContext);
   const classes = useStyles();
-  const data = useContext(UserContext);
+  const history = useHistory();
 
   const url = "https://api.cloudinary.com/v1_1/dryaxqxie/image/upload";
   const preset = "chitter";
@@ -67,7 +69,7 @@ export default function EditModal(props) {
       ).then((response) => {
         console.log(response);
         if (response.data === "Bio Updated") {
-          window.location.href =  "http://localhost:3000/profile/" + props.username;
+          history.push(`/profile/${user}`);
         } else if (response.data !== "Bio Updated") {
           setErrorMsg("Bio could not be updated");
           clearTimeout(newMsgTimeoutHandle);

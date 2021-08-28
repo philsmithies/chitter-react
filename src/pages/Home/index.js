@@ -26,25 +26,6 @@ export default function Home() {
       </div>
       <div className="signupbar">
         <SignUpBar />
-        <pre>{JSON.stringify(user, null, 2)}</pre>
-        {user ? (
-          <button
-            onClick={() => {
-              setUser(null);
-            }}
-          >
-            Log Out
-          </button>
-        ) : (
-          <button
-            onClick={async () => {
-              const user = await getProfileData();
-              setUser(user.username);
-            }}
-          >
-            Login
-          </button>
-        )}
         <p className="project_text">
           This is a project by{" "}
           <a className="name_text" href="www.github.com/philsmithies">
