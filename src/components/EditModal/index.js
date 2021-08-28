@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// remove props
 export default function EditModal(props) {
   const { user } = useContext(UserContext);
   const classes = useStyles();
@@ -36,6 +37,7 @@ export default function EditModal(props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const openModal = () => {
+        console.log(user)
     if (props.link) {
       window.location.href = "/signup";
     } else {
@@ -57,7 +59,7 @@ export default function EditModal(props) {
   const updateProfile = async (photoId) => {
     try {
       await Axios.post(
-        "http://localhost:3001/users/" + props.username + "/update/",
+        "http://localhost:3001/users/" + user + "/update/",
         {
           bio: bio,
           fullName: fullName,
@@ -67,9 +69,9 @@ export default function EditModal(props) {
           withCredentials: true,
         }
       ).then((response) => {
-        console.log(response);
+        // console.log(response);
         if (response.data === "Bio Updated") {
-          history.push(`/profile/${user}`);
+          history.push(`/`);
         } else if (response.data !== "Bio Updated") {
           setErrorMsg("Bio could not be updated");
           clearTimeout(newMsgTimeoutHandle);

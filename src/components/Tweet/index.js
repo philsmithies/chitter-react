@@ -57,7 +57,7 @@ export default function Tweet(props) {
         </div>
         <div className="tweet_content">
           <div className="username">
-            <Link to={`profile/${props.username}`} className="profileLinks">
+            <Link to={`/profile/${props.username}`} className="profileLinks">
               <strong>{props.fullName}</strong>
             </Link>
             <small className="usernameText">

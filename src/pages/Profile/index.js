@@ -50,30 +50,15 @@ export default function Profile() {
     }
   };
 
-  const getLoggedUser = async () => {
-    try {
-      axios({
-        method: "GET",
-        withCredentials: true,
-        url: "http://localhost:3001/user",
-      }).then((res) => {
-        setLoggedUser(res.data);
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
     getProfileData(userId);
     getTweets();
-    getLoggedUser()
   }, []);
 
   const EditButton = () => {
       if (userId) {
         if (user === userId) {
-          return <EditModal username={loggedUser.username} />;
+          return <EditModal />;
         } else {
           return '';
         }

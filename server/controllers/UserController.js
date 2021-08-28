@@ -24,6 +24,7 @@ let UserController = {
     let found = await UserModel.findOneAndUpdate({username:  req.params.username}, 
       {bio: req.body.bio, bioPhotoId: req.body.bioPhotoId, fullName: req.body.fullName}
       )
+    console.log(res)
     res.send("Bio Updated")
   },
 }

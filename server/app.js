@@ -79,8 +79,9 @@ app.post("/new", checkUser, async (req, res) => {
 });
 
 // // send user
-app.get("/user", checkUser, (req, res) => {
-  res.send(req.user); // The req.user stores the entire user that has been authenticated inside of it.
+app.get("/user", (req, res) => {
+  res.send(req.user);
+   // The req.user stores the entire user that has been authenticated inside of it.
 });
 
 // profile page
