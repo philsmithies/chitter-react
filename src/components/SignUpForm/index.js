@@ -49,10 +49,6 @@ export default function SignUpForm() {
     setImage(e.target.files[0]);
   };
 
-  // const componentWillUnmount = () => {
-  //   clearTimeout(newMsgTimeoutHandle);
-  // };
-
   const register = async () => {
     const formData = new FormData();
     formData.append("file", image);
