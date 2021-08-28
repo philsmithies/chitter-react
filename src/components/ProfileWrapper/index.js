@@ -2,9 +2,9 @@ import "./index.css";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Image } from "cloudinary-react";
 import { format } from "date-fns";
+import { Link } from "react-router-dom";
 
 export default function ProfileWrapper(props) {
-
   const formatDate = (date) => {
     return format(new Date(date), "MMM yyyy");
   };
@@ -13,9 +13,9 @@ export default function ProfileWrapper(props) {
     <div className="profile_wrapper">
       <div className="profile_functions">
         <div className="arrow">
-          <a href="/">
+          <Link to="/">
             <ArrowBackIcon />
-          </a>
+          </Link>
         </div>
         <div className="functions_text">
           <h3>
@@ -27,15 +27,14 @@ export default function ProfileWrapper(props) {
         </div>
       </div>
       <div className="bannerimg">
-      {props.bioPhotoId ? (
-      <Image
-                cloudName="chitter"
-                publicId={props.bioPhotoId}
-              /> ) : 
-        <img
-          src={process.env.PUBLIC_URL + "/img/banner.jpeg"}
-          alt="banner"
-        ></img> }
+        {props.bioPhotoId ? (
+          <Image cloudName="chitter" publicId={props.bioPhotoId} />
+        ) : (
+          <img
+            src={process.env.PUBLIC_URL + "/img/banner.jpeg"}
+            alt="banner"
+          ></img>
+        )}
       </div>
       <div className="bio_wrapper">
         <div className="follow_wrapper">
@@ -63,15 +62,16 @@ export default function ProfileWrapper(props) {
           <p>
             {props.bio}
             <br />
-            Joined {props.createdAt ? formatDate(props.createdAt) : 'August 2021'}          </p>
-                  {props.bioPhotoId !== '' ? (
-                    <div>
-              <Image
-                cloudName="chitter"
-                bioPhotoId={props.bioPhotoId}
-              />
-              </div>
-          ) : "" }
+            Joined{" "}
+            {props.createdAt ? formatDate(props.createdAt) : "August 2021"}{" "}
+          </p>
+          {props.bioPhotoId !== "" ? (
+            <div>
+              <Image cloudName="chitter" bioPhotoId={props.bioPhotoId} />
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>

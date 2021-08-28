@@ -1,27 +1,33 @@
 import SignUpBarBtn from "../Buttons/SignUpBarBtn";
 import ProfileBtn from "../Buttons/ProfileBtn";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
 import "./index.css";
+import { Link } from "react-router-dom";
 
 export default function SignUpBar() {
-  const data = useContext(UserContext);
-  const [user, setUser] = useState('');
+  const { user } = useContext(UserContext);
 
   return (
     <div className="SignUpBarWrapper">
-      {data && data.username ? (
+      {user ? (
         <div>
-          <h2 className="welcome_title">Hello {data.username}</h2>
-          <ProfileBtn username={data.username} />
-          <SignUpBarBtn text={"Log Out"} link={'/logout'}/>
+          <h2 className="welcome_title">Hello {user}</h2>
+          <ProfileBtn username={user} />
+          <Link to={"/logout"}>
+            <SignUpBarBtn text={"Log Out"} />
+          </Link>
         </div>
       ) : (
         <div>
           <h1>New To Chitter?</h1>
           <p>Sign up now to get your own personalized timeline!</p>
-          <SignUpBarBtn text={"Sign Up"} link={"/signup"}/>
-          <SignUpBarBtn text={"Log In"} link={"/login"}/>
+          <Link to={"/signup"}>
+            <SignUpBarBtn text={"Sign Up"} />
+          </Link>
+          <Link to={"/login"}>
+            <SignUpBarBtn text={"Log In"} />
+          </Link>
         </div>
       )}
     </div>

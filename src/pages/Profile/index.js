@@ -117,6 +117,12 @@ export default function Profile() {
       <div className="signupbar">
         <SignUpBar />
         <EditButton/>
+        <p className="project_text">
+          This is a project by{" "}
+          <a className="name_text" href="www.github.com/philsmithies">
+            <span>Phil Smithies.</span>
+          </a>
+        </p>
       </div>
     </div>
   );

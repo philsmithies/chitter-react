@@ -3,6 +3,7 @@ import RepeatIcon from "@material-ui/icons/Repeat";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import LinkIcon from "@material-ui/icons/Link";
+import { Link } from "react-router-dom";
 // import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { format } from "date-fns";
 import { Image } from "cloudinary-react";
@@ -56,9 +57,9 @@ export default function Tweet(props) {
         </div>
         <div className="tweet_content">
           <div className="username">
-            <a href={`profile/${props.username}`} className="profileLinks">
+            <Link to={`profile/${props.username}`} className="profileLinks">
               <strong>{props.fullName}</strong>
-            </a>
+            </Link>
             <small className="usernameText">
               @{props.username ? props.username : ""}
             </small>
@@ -72,13 +73,13 @@ export default function Tweet(props) {
           <div className="bodyText">{props.text}</div>
           <div>
             {props.imageUrl !== "" ? (
-              <a href={props.imageUrl}>
+              <Link to={props.imageUrl}>
                 <Image
                   className="tweet_photo"
                   cloudName="chitter"
                   publicId={props.imageUrl}
                 />
-              </a>
+              </Link>
             ) : (
               ""
             )}

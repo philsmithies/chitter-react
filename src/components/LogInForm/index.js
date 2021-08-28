@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { TextField } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import { UserContext } from "../../Contexts/UserContext";
+import { useHistory } from "react-router-dom";
 import Axios from "axios";
 
 export default function LogInForm() {
+  const history = useHistory();
+
+  const { setUser } = useContext(UserContext);
   const [loginUsername, setLoginUsername] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [noUserMsg, setNoUserMsg] = useState('');
@@ -20,9 +25,8 @@ export default function LogInForm() {
       url: "http://localhost:3001/login",
     }).then((res) => {
       if (res.data.auth) {
-        localStorage.setItem("token", res.data.token)
-        localStorage.setItem('user', res.data)
-        window.location.href = "/";
+        setUser(res.data.user.username)
+        history.push("/");
       } else if (res.data === "No User Exists") {
         setNoUserMsg("User Not Found");
         setNoUserError(true); 
