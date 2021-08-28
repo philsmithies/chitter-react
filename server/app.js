@@ -9,7 +9,7 @@ const bodyParser = require("body-parser");
 const authRoutes = require("./routes/authRoutes");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const User = require("./models/User");
+const User = require("./models/user");
 require("dotenv").config();
 let TweetModel = require("./models/tweet.js");
 const { requireAuth, checkUser } = require("./middleware/authMiddleware");
