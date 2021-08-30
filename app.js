@@ -39,12 +39,12 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
 
-// app.use(
-//   cors({
-//     origin: "https://chitter-twitterclone.herokuapp.com",
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: "http://localhost:3000/",
+    credentials: true,
+  })
+);
 
 //----------------------------------------- END OF MIDDLEWARE--------------------------------------------------- //
 
