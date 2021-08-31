@@ -68,7 +68,7 @@ app.post("/tweets/:username/create", TweetControls.create);
 
 app.use(authRoutes);
 
-app.post("/new", async (req, res) => {
+app.post("/new", checkUser, async (req, res) => {
   req.body.author = req.user._id;
   let newTweet = new TweetModel(req.body);
   console.log(newTweet);
