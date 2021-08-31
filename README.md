@@ -26,7 +26,7 @@
 **[Check it out here.](http://chitter-twitterclone.herokuapp.com/)** 
 ### Screenshots
 
-![Home](./public/img/Home.png)
+![Home](./client/public/img/Home.png)
 
 ## Getting started
 
