@@ -28,6 +28,11 @@
 
 ![Home](./client/public/img/Home.png)
 
+![Home2](./client/public/img/Home2.png)
+
+![Modal](./client/public/img/Modal.png)
+
+
 ## Getting started
 
 ### Development
