@@ -19,9 +19,8 @@ const { requireAuth, checkUser } = require("./middleware/authMiddleware");
 // connect to mongodb
 const PORT = process.env.PORT || 3001;
 
-const dbURI = `mongodb+srv://admin:${process.env.USER_PASSWORD}@cluster0.fm9ki.mongodb.net/chitter?retryWrites=true&w=majority`;
 mongoose
-  .connect(dbURI, {
+  .connect(process.env.dbURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -38,40 +37,6 @@ const app = express();
 app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
-app.set("trust proxy", 1);
-
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET || 'secr3t',
-    resave: true,
-    saveUninitialized: false,
-    cookie: {
-      sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax', // must be 'none' to enable cross-site delivery
-      secure: process.env.NODE_ENV === "production", // must be true if sameSite='none'
-    }
-  })
-);
-
-// Add headers before the routes are defined
-app.use(function (req, res, next) {
-
-  // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', 'https://gracious-volhard-935a72.netlify.app');
-    // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-
-  // Request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-  // Request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
-  res.setHeader('Access-Control-Allow-Credentials', true);
-
-  // Pass to next layer of middleware
-  next();
-});
 
 // app.use(
 //   cors({
