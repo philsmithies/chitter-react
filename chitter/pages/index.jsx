@@ -3,7 +3,7 @@ import clientPromise from "../lib/mongodb";
 
 export default function Home({ isConnected }) {
   return (
-    <div className="bg-red-500">
+    <div className="bg-red-500 h-screen">
       <p className="">Mongo DB {isConnected}</p>
     </div>
   );
