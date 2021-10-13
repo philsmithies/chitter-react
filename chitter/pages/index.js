@@ -1,23 +1,26 @@
-import useSwr from "swr";
-import Link from "next/link";
+import Head from "next/head";
+import clientPromise from "../lib/mongodb";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
-
-export default function Index() {
-  const { data, error } = useSwr("/api/users", fetcher);
-
-  if (error) return <div>Failed to load users</div>;
-  if (!data) return <div>Loading...</div>;
-
+export default function Home({ isConnected }) {
   return (
-    <ul>
-      {data.map((user) => (
-        <li key={user.id}>
-          <Link href="/user/[id]" as={`/user/${user.id}`}>
-            <a>{`User ${user.id}`}</a>
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <div className="bg-red-500">
+      <p className="">Mongo DB {isConnected}</p>
+    </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const client = await clientPromise;
+
+  // client.db() will be the default database passed in the MONGODB_URI
+  // You can change the database by calling the client.db() function and specifying a database like:
+  // const db = client.db("myDatabase");
+  // Then you can execute queries against your database like so:
+  // db.find({}) or any of the MongoDB Node Driver commands
+
+  const isConnected = await client.isConnected();
+
+  return {
+    props: { isConnected },
+  };
 }

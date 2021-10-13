@@ -11,6 +11,7 @@ import { UserContext } from "./Contexts/UserContext";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [admin, setAdmin] = useState(null);
   // memo prevents the change unless anything else changes.
   const providerValue = useMemo(() => ({ user, setUser }), [user, setUser]);
 
@@ -25,6 +26,8 @@ function App() {
             <Route path="/profile/:userId" component={Profile} />
             <Route path="/new" component={New} />
             <Route path="/test" component={Test} />
+            <Route path="/users" component={admin ? "" : LogIn} />
+            <Route path="/tweets" component={admin ? "" : LogIn} />
           </Switch>
         </UserContext.Provider>
         <Footer />

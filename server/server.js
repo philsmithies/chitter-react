@@ -4,7 +4,7 @@ const cookieParser = require("cookie-parser");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 const bodyParser = require("body-parser");
-const authRoutes = require("./routes/authRoutes");
+// const authRoutes = require("./routes/authRoutes");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const User = require("./models/user");
@@ -18,12 +18,17 @@ const { requireAuth, checkUser } = require("./middleware/authMiddleware");
 const PORT = process.env.PORT || 3001;
 
 mongoose
-  .connect(process.env.dbURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-  })
-  .then((result) => console.log(`Connected to Port ${process.env.PORT || PORT}`))
+  .connect(
+    "mongodb+srv://admin:admin123@cluster0.fm9ki.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    }
+  )
+  .then((result) =>
+    console.log(`Connected to Port ${process.env.PORT || PORT}`)
+  )
   .then((result) => app.listen(`${process.env.PORT || PORT}`))
   .catch((err) => console.log(err));
 
@@ -39,7 +44,7 @@ app.use(cookieParser());
 //----------------------------------------- END OF MIDDLEWARE--------------------------------------------------- //
 
 // Routes
-// app.get('*', checkUser)
+// app.get("*", checkUser);
 const UserControls = require("./controllers/UserController.js");
 const TweetControls = require("./controllers/TweetController.js");
 // const LikeControls = require("./controllers/LikeController.js");
@@ -57,7 +62,7 @@ app.post("/tweets/:username/create", TweetControls.create);
 // app.get("/likes/", LikeControls.all);
 // app.post("/likes/:id/", LikeControls.create);
 
-app.use(authRoutes);
+// app.use(authRoutes);
 
 app.post("/new", checkUser, async (req, res) => {
   req.body.author = req.user._id;
@@ -70,7 +75,7 @@ app.post("/new", checkUser, async (req, res) => {
 // // send user
 app.get("/user", (req, res) => {
   res.send(req.user);
-   // The req.user stores the entire user that has been authenticated inside of it.
+  // The req.user stores the entire user that has been authenticated inside of it.
 });
 
 // profile page
