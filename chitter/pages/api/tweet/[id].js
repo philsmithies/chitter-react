@@ -1,14 +1,12 @@
 import { connectToDatabase } from "../../../util/mongodb";
-const mongoose = require("mongoose");
+const { ObjectId } = require("mongodb");
 
 export default async (req, res) => {
   const { db } = await connectToDatabase();
-  const { id } = mongoose.Types.ObjectId(req.query);
 
   const tweet = await db
     .collection("tweets")
-    .find({ _id: `${id}` })
+    .find({ _id: ObjectId(req.query.id) })
     .toArray();
-
   res.json(tweet);
 };
