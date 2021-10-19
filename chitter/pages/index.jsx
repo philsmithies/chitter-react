@@ -1,10 +1,12 @@
 import Head from "next/head";
+import Feed from "../components/Feed";
 import clientPromise from "../lib/mongodb";
 
 export default function Home({ isConnected }) {
   return (
     <div className="bg-red-500 h-screen">
       <p className="">Mongo DB {isConnected}</p>
+      <Feed />
     </div>
   );
 }

@@ -14,7 +14,9 @@ const Footer = () => {
           </Link>
           <Link href="http://www.github.com/philsmithies" passHref>
             <button className="ml-1 inline-flex items-center justify-center h-6 w-6 transition-colors duration-150 bg-gray-900 rounded-lg focus:shadow-outline hover:bg-teal600">
-              <FaGithub className="h-4 w-4 text-teal300" />
+              <div className="h-4 w-4 text-teal300">
+                <FaGithub />
+              </div>
             </button>
           </Link>
         </div>
