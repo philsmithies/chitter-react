@@ -1,7 +1,31 @@
-import { connectToDatabase } from "../../util/mongodb.js";
+import dbConnect from "../../lib/dbConnect";
+import User from "../../models/user";
+
+dbConnect();
 
 export default async (req, res) => {
-  const { db } = await connectToDatabase();
-  const users = await db.collection("users").find({}).toArray();
-  res.json(users);
+  const { method } = req;
+
+  switch (method) {
+    case "GET":
+      try {
+        const tweets = await User.find({});
+        res.status(200).json({ success: true, data: tweets });
+      } catch (error) {
+        res.status(400).json({ success: false });
+      }
+      break;
+    case "POST":
+      try {
+        const user = await User.create(req.body);
+
+        res.status(201).json({ success: true, data: tweet });
+      } catch (error) {
+        res.status(400).json({ success: false });
+      }
+      break;
+    default:
+      res.status(400).json({ success: false });
+      break;
+  }
 };

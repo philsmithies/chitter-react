@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Feed from "../components/Feed";
-import clientPromise from "../lib/mongodb";
+import clientPromise from "../lib/clientPromise";
 
 export default function Home({ isConnected }) {
   return (
