@@ -25,7 +25,7 @@ export default async (req, res) => {
     case "GET":
       try {
         const tweets = await Tweet.find({});
-        res.status(200).json(tweets);
+        res.status(200).json({ success: true, result: tweets });
       } catch (error) {
         res.status(400).json({ success: false });
       }
@@ -34,7 +34,7 @@ export default async (req, res) => {
       try {
         const tweet = await Tweet.create(req.body);
 
-        res.status(201).json({ success: true, data: tweet });
+        res.status(201).json({ success: true, result: tweet });
       } catch (error) {
         res.status(400).json({ success: false });
       }

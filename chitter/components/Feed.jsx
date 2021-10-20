@@ -14,7 +14,7 @@ export default function Feed() {
 
   return (
     <ul>
-      {data.map((tweet) => (
+      {data.result.map((tweet) => (
         <li key={tweet._id}>
           {/* <Link href="/tweet/[id]" as={`/tweet/${tweet._id}`}>
             <a>{`Tweet ${tweet.text}`}</a>

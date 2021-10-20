@@ -9,8 +9,8 @@ export default async (req, res) => {
   switch (method) {
     case "GET":
       try {
-        const tweets = await User.find({});
-        res.status(200).json({ success: true, data: tweets });
+        const users = await User.find({});
+        res.status(200).json({ success: true, result: users });
       } catch (error) {
         res.status(400).json({ success: false });
       }
@@ -19,7 +19,7 @@ export default async (req, res) => {
       try {
         const user = await User.create(req.body);
 
-        res.status(201).json({ success: true, data: tweet });
+        res.status(201).json({ success: true, result: user });
       } catch (error) {
         res.status(400).json({ success: false });
       }
